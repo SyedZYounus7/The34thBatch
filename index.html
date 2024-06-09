@@ -51,10 +51,10 @@
     <div>
         <!--<img src="SZY07Lgo main 3.png">-->
     <div class="form-container">
-        <h1>Enter Access Code</h1>
+        <h1 id="headingmain">Enter Access Code</h1>
         <form>
             <input type="password" placeholder="Access Code" required>
-            <button type="submit">GO</button>
+            <button type="submit" onclick="writeNewPost()">GO</button>
         </form>
     </div>
     </div>
@@ -83,6 +83,23 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
+  
+
+    </script>
+<script>
+    function writeNewPost() {
+        var postData = {
+            Name: 'Brett'
+        };
+        var newPostKey = firebase.database().ref().push().key;
+        var updates = {};
+        updates['/' + newPostKey] = postData;
+        return firebase.database().ref().update(updates);
+        document.getElementById("headingmain").innerHtml ="changed and added data";
+    }
+
+
 </script>
+
 </body>
 </html>
