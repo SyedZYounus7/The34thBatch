@@ -53,14 +53,71 @@
     <div class="form-container">
         <h1 id="headingmain">Enter Access Code</h1>
         <form>
-            <input type="password" placeholder="Access Code" required>
-            <button type="submit" onclick="check()">GO</button>
+            <input id ="enterName" type="text" placeholder="Your Name">
+            <input id="enterCode" type="password" placeholder="Access Code" required>
+            <button type="submit" id="goBtn">GO</button>
         </form>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-<script>
-    function check(){
-        document.body.background="red";
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyClTAyz0vHZPKQkQw43FQWRF4M48fcQS14",
+    authDomain: "anonymousbeing-a8f5d.firebaseapp.com",
+    databaseURL: "https://anonymousbeing-a8f5d-default-rtdb.firebaseio.com",
+    projectId: "anonymousbeing-a8f5d",
+    storageBucket: "anonymousbeing-a8f5d.appspot.com",
+    messagingSenderId: "70644708803",
+    appId: "1:70644708803:web:41068a0eb44080e71cb976"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+
+    import {getDatabase, set, get, update, remove, ref, child}
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    
+    const db= getDatabase();
+
+    var enterName = document.querySelector("#enterName");
+    var entercode = document.querySelector("#enterCode");
+
+
+    var goBtn = document.querySelector("#goBtn")
+    
+
+    //var insertData = document.querySelector("#insertDataBtn");
+    function insertdata(){
+        set(ref(db, "Users/"+enterName.value),{
+            Name: enterName.value, //inpvariable.value can also be used "value can also be used"
+            AccessCode:enterCode.value
+        })
+        .then(()=>{
+            alert("Data Added Successfully")
+        })
+        .catch((error)=>{
+            alert(error)
+        });
     }
+    Gobtn.addEventListener('click',insertdata);
+    //var updataData = document.querySelector("#")
+    function updatadata(){
+        
+    }
+
+    function removedata(){
+        
+    }
+
+    function finddata(){
+        
+    }
+
+    
 </script>
 
 </body>
