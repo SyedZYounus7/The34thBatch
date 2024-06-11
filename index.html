@@ -1,24 +1,18 @@
-<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<!--     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script> -->
-<!--     <script src="index.js"></script> -->
-
-
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
-
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
-
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anonymous</title>
-    <link rel="icon" type="image/png" href="SZY07Lgo main 3.png" />
+    <title>Document</title>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
 
     <style>
         body {
@@ -28,27 +22,33 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0; /* Body background color */
+            background-color: #f0f0f0;
+            /* Body background color */
         }
-        .form-container {
-            background-color: #ffffff; /* Form background color */
+
+        .container {
+            background-color: #ffffff;
+            /* Form background color */
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-        .form-container h1 {
+
+        .container h4 {
             font-size: 24px;
             margin-bottom: 16px;
         }
-        .form-container input[type="password"] {
+
+        .container input {
             width: 100%;
             padding: 10px;
             margin-bottom: 16px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        .form-container button {
+
+        .container button {
             background-color: #007bff;
             color: #ffffff;
             border: none;
@@ -58,100 +58,61 @@
         }
     </style>
 </head>
+
 <body>
-    <div>
-        <!--<img src="SZY07Lgo main 3.png">-->
-    <div class="form-container">
-        <h1 id="headingmain">Enter Access Code</h1>
-        <form>
-            <input id ="enterName" type="text" placeholder="Your Name">
-            <input id="enterCode" type="password" placeholder="Access Code">
-            <button type="submit" id="goBtn">GO</button>
-        </form>
-<script type="module">
-  // // Import the functions you need from the SDKs you need
-  // import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  // // TODO: Add SDKs for Firebase products that you want to use
-  // // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // // Your web app's Firebase configuration
-  // const firebaseConfig = {
-  //   apiKey: "AIzaSyClTAyz0vHZPKQkQw43FQWRF4M48fcQS14",
-  //   authDomain: "anonymousbeing-a8f5d.firebaseapp.com",
-  //   databaseURL: "https://anonymousbeing-a8f5d-default-rtdb.firebaseio.com",
-  //   projectId: "anonymousbeing-a8f5d",
-  //   storageBucket: "anonymousbeing-a8f5d.appspot.com",
-  //   messagingSenderId: "70644708803",
-  //   appId: "1:70644708803:web:41068a0eb44080e71cb976"
-  // };
+    <div class="container">
+        <h4>Enter Your Name</h4>
+        <input id="enterName" type="text" , placeholder="Enter Your Name">
+        <h4>Enter Your Access Code</h4>
+        <input type="password" placeholder="Enter Access Code" id="enterCode">
 
-  // // Initialize Firebase
-  // const app = initializeApp(firebaseConfig);
+        <button id="gobtn">Go</button>
 
-    
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyC3gJXZe9UECbHl6OiS8PyiEJPV8ZPeQuc",
-    authDomain: "anonymousbeing2-51426.firebaseapp.com",
-    databaseURL: "https://anonymousbeing2-51426-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "anonymousbeing2-51426",
-    storageBucket: "anonymousbeing2-51426.appspot.com",
-    messagingSenderId: "138582770325",
-    appId: "1:138582770325:web:86b39641d692ea4664919c"
-  };
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyClTAyz0vHZPKQkQw43FQWRF4M48fcQS14",
+            authDomain: "anonymousbeing-a8f5d.firebaseapp.com",
+            databaseURL: "https://anonymousbeing-a8f5d-default-rtdb.firebaseio.com",
+            projectId: "anonymousbeing-a8f5d",
+            storageBucket: "anonymousbeing-a8f5d.appspot.com",
+            messagingSenderId: "70644708803",
+            appId: "1:70644708803:web:41068a0eb44080e71cb976"
+        };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
 
+        import {getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"
 
+        const db = getDatabase();
 
-    import {getDatabase, set, get, update, remove, ref, child}
-        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-    
-    const db= getDatabase();
+        var enterName = document.querySelector('#enterName');
+        var enterCode  = document.querySelector('#enterCode');
 
-    var enterName = document.querySelector("#enterName");
-    var entercode = document.querySelector("#enterCode");
+        var gobtn = document.querySelector('#gobtn');
+
+        function insertData(){
+            console.log("got till here")
+            set(ref(db,"Users/"+enterCode.value),{
+                Name:enterName.value,
+            })
+            .then(()=>{alert("Data Inserted")})
+            .catch((error)=>{alert(error)})
+        };
+        // console.log("Reacahed even here")
+
+        gobtn.addEventListener('click',insertData)
 
 
-    var goBtn = document.querySelector("#goBtn")
-    
-
-    //var insertData = document.querySelector("#insertDataBtn");
-    function insertdata(){
-        console.log("reached in the func");
-        set(ref(db, "Users/"+enterName.value),{
-            Name: enterName.value, //inpvariable.value can also be used "value can also be used"
-            AccessCode:enterCode.value
-        })
-        .then(()=>{
-            alert("Data Added Successfully")
-        })
-        .catch((error)=>{
-            alert(error)
-        });
-    }
-    goBtn.addEventListener('click',insertdata);
-    //var updataData = document.querySelector("#")
-    function updatadata(){
-        
-    }
-
-    function removedata(){
-        
-    }
-
-    function finddata(){
-        
-    }
-
-    
-</script>
-
+    </script>
 </body>
+
 </html>
