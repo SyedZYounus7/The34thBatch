@@ -124,6 +124,7 @@
 
     //var insertData = document.querySelector("#insertDataBtn");
     function insertdata(){
+        console.log("reached in the func");
         set(ref(db, "Users/"+enterName.value),{
             Name: enterName.value, //inpvariable.value can also be used "value can also be used"
             AccessCode:enterCode.value
