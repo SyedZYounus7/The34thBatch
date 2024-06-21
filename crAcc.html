@@ -58,6 +58,9 @@
             display:none;
         }
 
+        .initials{
+            display:block;
+
     </style>
 </head>
 
@@ -116,7 +119,6 @@
 
 
         function proceedAccCreation(){
-            initials.style.display = 'none';
 
             set(ref(db, "Users/" + enterFullName.value), {
                     LoginCount: 0,
@@ -144,6 +146,7 @@
             } else if (year > 2010) {
                 alert("You are to young to be of the 34th batch")
             } else {
+            initials.style.display = 'none';
                 proceedAccCreation()
             }
             
