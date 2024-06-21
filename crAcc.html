@@ -53,12 +53,10 @@
             border-radius: 3px;
             cursor: pointer;
         }
-        
-        .laters{
-            display:none;
-        }
-        
 
+        .laters {
+            display: none;
+        }
     </style>
 </head>
 
@@ -81,12 +79,8 @@
     </div>
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
 
-        // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAfItoAYukh28zgMoYgehQbSA1WjVmjkjg",
             authDomain: "the34thbatch-88ecf.firebaseapp.com",
@@ -102,10 +96,7 @@
 
         import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"
 
-        const db = getDatabase();
-
-
-
+        const db = getDatabase(app);
 
         var enterFullName = document.querySelector("#enterFullName")
         var createAccountbtn = document.querySelector("#createAccount")
@@ -115,24 +106,46 @@
         var passwordOnce = document.querySelector("#passwordFinal")
 
 
+        async function checkPreExistence(year, month, day) {
+            try {
+                const dbref = ref(db);
+                const snapshot = await get(child(dbref, "Users/" + enterFullName.value));
 
-        function proceedAccCreation(){
-            for(var a =0;a<initials.length;a++){
+                if (snapshot.exists()) {
+                    alert("Account Already Exists");
+                    return 1;
+                } else {
+                    alert("Account does not exist!");
+                    return 0;
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                alert("An Unknown Error Occurred")
+                return -1; // Handle the error case appropriately
+            }
+        }
+
+        function proceedAccCreation(year, month, day) {
+            for (var a = 0; a < initials.length; a++) {
 
                 initials[a].style.display = 'none';
             }
 
-            set(ref(db, "Users/" + enterFullName.value), {
+
+            function createAcc(year, month, day) {
+                set(ref(db, "Users/" + enterFullName.value), {
                     LoginCount: 0,
-                    DOB:''
+                    DOB: year + '-' + month + '-' + day
                 })
                     .then(() => { alert("Account created Successfully") })
                     .catch((error) => { alert(error) })
-        }   
+            }
 
-        
+        }
 
-        
+
+
+
         function checkDetails() {
             var enterdob = document.querySelector("#enterdob").value;
 
@@ -148,15 +161,24 @@
             } else if (year > 2010) {
                 alert("You are to young to be of the 34th batch")
             } else {
-                proceedAccCreation()
+
+                checkPreExistence(year, month, day)
+                    .then((result) => {
+                        if (result == 1) {
+                            console.log(result)
+                        } else {
+                            proceedAccCreation(year, month, day)
+                        }
+
+                    });
             }
-            
-        }
-
-        function checkDetails2(){
 
         }
-        proceed1btn.addEventListener('click',checkDetails)
+
+        function checkDetails2() {
+
+        }
+        proceed1btn.addEventListener('click', checkDetails)
         createAccountbtn.addEventListener('click', checkDetails2)
 
     </script>
