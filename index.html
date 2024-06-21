@@ -66,7 +66,7 @@
         <input id="enterName" type="text" , placeholder="Enter Your Name">
         <h4>Enter Your Access Code</h4>
         <input type="password" placeholder="Enter Access Code" id="enterCode">
-
+        <button id="createAccount" onclick="location.href='crAcc.html'">Create Account</button>
         <button id="gobtn">Go</button>
 
     </div>
@@ -78,40 +78,89 @@
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyClTAyz0vHZPKQkQw43FQWRF4M48fcQS14",
-            authDomain: "anonymousbeing-a8f5d.firebaseapp.com",
-            databaseURL: "https://anonymousbeing-a8f5d-default-rtdb.firebaseio.com",
-            projectId: "anonymousbeing-a8f5d",
-            storageBucket: "anonymousbeing-a8f5d.appspot.com",
-            messagingSenderId: "70644708803",
-            appId: "1:70644708803:web:41068a0eb44080e71cb976"
+            apiKey: "AIzaSyAfItoAYukh28zgMoYgehQbSA1WjVmjkjg",
+            authDomain: "the34thbatch-88ecf.firebaseapp.com",
+            databaseURL: "https://the34thbatch-88ecf-default-rtdb.firebaseio.com",
+            projectId: "the34thbatch-88ecf",
+            storageBucket: "the34thbatch-88ecf.appspot.com",
+            messagingSenderId: "106571997226",
+            appId: "1:106571997226:web:d49c6cb1155690fc3ca353"
         };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
 
-        import {getDatabase, set, get, update, remove, ref, child} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"
+        import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"
 
         const db = getDatabase();
 
         var enterName = document.querySelector('#enterName');
-        var enterCode  = document.querySelector('#enterCode');
+        // var createAccountbtn = document.querySelector('#createAccount')
+
+
+        enterName.addEventListener("input", function (event) {
+            event.target.value = event.target.value.toUpperCase();
+            event.target.value = event.target.value.replace(/\s+/g, '');
+        });
+
+        var enterCode = document.querySelector('#enterCode');
 
         var gobtn = document.querySelector('#gobtn');
 
-        function insertData(){
-            console.log("got till here")
-            set(ref(db,"Users/"+enterCode.value),{
-                Name:enterName.value,
+        function insertData() {
+            if (enterName.value.replace(/\s+/g, '') == '') {
+                alert("Please Enter Name")
+            } else {
+                set(ref(db, "Users/" + enterName.value), {
+                    LoginCount: 0
+                })
+                    .then(() => { alert("Data Inserted") })
+                    .catch((error) => { alert(error) })
+            }
+        }
+
+        // var userExists;
+        function findUser(userName) {
+            var nameExistance;
+            const dbref = ref(db);
+
+            get(child(dbref, "Users/" + userName))
+                .then((snapshot) => {
+
+                    if (snapshot.exists()) {
+                        nameExistance = 1;
+                    } else {
+                        // alert("User does not exist")
+                        nameExistance = 0;
+                    }
+                })
+        }
+
+        function updateData() {
+
+            update(ref(dv, "Users/" + "the folder of which data has to be updated"), {
+                LoginCount: "The new value"
             })
-            .then(()=>{alert("Data Inserted")})
-            .catch((error)=>{alert(error)})
-        };
-        // console.log("Reacahed even here")
+                .then(() => {
+                    alert("Data Updated Successfully")
+                })
+                .catch((error) => {
+                    alert(error)
+                })
+        }
+        function removeData() {
+            remove(ref(db, "Users/" + "the folder that has to be removed"))
+                .then(() => {
+                    alert("Data Removed Successfully");
+                })
+                .catch((error) => {
+                    alert(error);
+                })
+        }
+        function login() {
 
-        gobtn.addEventListener('click',insertData)
-
-
+        }
+        // gobtn.addEventListener('click', insertData);
     </script>
 </body>
 
