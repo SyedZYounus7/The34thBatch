@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .laters{
+            display:none;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Create an Account</h2>
+
+        <label for="fullName" class="initials">Full Name:</label>
+        <input type="text" id="enterFullName" name="fullName" class="initials">
+        <label for="dob" class="initials">Date of Birth:</label>
+        <input type="date" id="enterdob" name="dob" class="initials">
+        <label for="passwordOnce" class="laters">Enter Password</label>
+        <input type="password" id="passwordOnce" class="laters">
+        <label for="confirmPassword" class="laters">Confirm Password</label>
+        <input type="password" id="passwordFinal" class="laters">
+        <button type="submit" id="proceed1">Proceed</button>
+        <button type="submit" id="createAccount" class="laters">Create Account</button>
+
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfItoAYukh28zgMoYgehQbSA1WjVmjkjg",
+            authDomain: "the34thbatch-88ecf.firebaseapp.com",
+            databaseURL: "https://the34thbatch-88ecf-default-rtdb.firebaseio.com",
+            projectId: "the34thbatch-88ecf",
+            storageBucket: "the34thbatch-88ecf.appspot.com",
+            messagingSenderId: "106571997226",
+            appId: "1:106571997226:web:d49c6cb1155690fc3ca353"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"
+
+        const db = getDatabase();
+
+
+
+
+        var enterFullName = document.querySelector("#enterFullName")
+        var createAccountbtn = document.querySelector("#createAccount")
+        var proceed1btn = document.querySelector("#proceed1")
+        var initials = document.querySelectorAll(".initials")
+        var passwordOnce = document.querySelector("#passwordOnce")
+        var passwordOnce = document.querySelector("#passwordFinal")
+
+
+
+        function proceedAccCreation(){
+            initials.style.display = 'none';
+
+            set(ref(db, "Users/" + enterFullName.value), {
+                    LoginCount: 0,
+                    DOB:''
+                })
+                    .then(() => { alert("Account created Successfully") })
+                    .catch((error) => { alert(error) })
+        }   
+
+        
+
+        
+        function checkDetails() {
+            var enterdob = document.querySelector("#enterdob").value;
+
+            var currentDate = new Date();
+            var currentYear = currentDate.getFullYear();
+
+            var dobParts = enterdob.split('-'); // Split by hyphen
+            var year = parseInt(dobParts[0]);
+            var month = parseInt(dobParts[1]);
+            var day = parseInt(dobParts[2]);
+            if ((enterFullName.value.replace(/\s+/g, '') == '') || (!enterdob)) {
+                alert('Please enter all the fields!')
+            } else if (year > 2010) {
+                alert("You are to young to be of the 34th batch")
+            } else {
+                proceedAccCreation()
+            }
+            
+        }
+
+        function checkDetails2(){
+
+        }
+        proceed1btn.addEventListener('click',checkDetails)
+        createAccountbtn.addEventListener('click', checkDetails2)
+
+    </script>
+</body>
+
+</html>
