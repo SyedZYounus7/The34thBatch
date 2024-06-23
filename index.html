@@ -133,6 +133,9 @@
         }
 
         function checkDetails() {
+            errorLabel.style.display = 'block';
+            errorLabel.innerHTML = 'Loading...';
+            
             if ((enterName.value.replace(/\s+/g, '') == '') || (enterPassword.value.replace(/\s+/g, '') == '')) {
                 errorLabel.style.display = 'block';
                 errorLabel.innerHTML = "Please fill all the fields";
