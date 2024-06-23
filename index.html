@@ -16,45 +16,44 @@
 
     <style>
         body {
-            margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
-            /* Body background color */
+            margin: 0;
         }
 
         .container {
-            background-color: #ffffff;
-            /* Form background color */
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .container h4 {
-            font-size: 24px;
-            margin-bottom: 16px;
-        }
-
-        .container input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 16px;
+            width: 400px;
+            padding: 20px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
         }
 
-        .container button {
-            background-color: #007bff;
-            color: #ffffff;
+        input[type="text"],
+        input[type="date"],
+        input[type="password"],
+        button {
+            width: 95%;
+            padding: 12px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: rgb(15, 231, 15);
+            color: #100f0f;
             border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
             cursor: pointer;
+        }
+
+        button:active {
+            opacity: 0.6;
         }
     </style>
 </head>
@@ -64,10 +63,11 @@
     <div class="container">
         <h4>Enter Your Name</h4>
         <input id="enterName" type="text" , placeholder="Enter Your Name">
-        <h4>Enter Your Access Code</h4>
-        <input type="password" placeholder="Enter Access Code" id="enterCode">
-        <button id="createAccount" onclick="location.href='crAcc.html'">Create Account</button>
-        <button id="gobtn">Go</button>
+        <h4>Enter Your Password</h4>
+        <input type="password" placeholder="Enter Password" id="enterPassword">
+        <label for="errorLabel" id="errorLabel"></label>
+        <button id="loginbtn">Login</button>
+        <a style="color:rgb(246, 6, 186);" id="createAccount" onclick="location.href='crAcc.html'">Create an Account</a>
 
     </div>
     <script type="module">
@@ -95,72 +95,74 @@
         const db = getDatabase();
 
         var enterName = document.querySelector('#enterName');
-        // var createAccountbtn = document.querySelector('#createAccount')
+        var enterPassword = document.querySelector('#enterPassword');
+        var loginbtn = document.querySelector('#loginbtn');
+        var errorLabel = document.querySelector('#errorLabel')
 
+        // enterName.addEventListener("input", function (event) {
+        //     event.target.value = event.target.value.toUpperCase();
+        //     event.target.value = event.target.value.replace(/\s+/g, '');
+        // });
 
-        enterName.addEventListener("input", function (event) {
-            event.target.value = event.target.value.toUpperCase();
-            event.target.value = event.target.value.replace(/\s+/g, '');
-        });
-
-        var enterCode = document.querySelector('#enterCode');
-
-        var gobtn = document.querySelector('#gobtn');
-
-        function insertData() {
-            if (enterName.value.replace(/\s+/g, '') == '') {
-                alert("Please Enter Name")
-            } else {
-                set(ref(db, "Users/" + enterName.value), {
-                    LoginCount: 0
-                })
-                    .then(() => { alert("Data Inserted") })
-                    .catch((error) => { alert(error) })
-            }
-        }
-
-        // var userExists;
-        function findUser(userName) {
+        function findData() {
             var nameExistance;
             const dbref = ref(db);
 
-            get(child(dbref, "Users/" + userName))
+            get(child(dbref, "Users/" + enterName.value))
                 .then((snapshot) => {
 
                     if (snapshot.exists()) {
-                        nameExistance = 1;
+                        console.log("User Name Exists")
+                        console.log(enterPassword.value + '\n' + snapshot.val().Password)
+                        if (enterPassword.value == snapshot.val().Password) {
+                            console.log("Login Successful")
+                        } else {
+                            // errorLabel.style.display = '';
+                            errorLabel.style.color = 'red';
+                            errorLabel.innerHTML = 'Incorrect Password! Try Again';
+                            enterPassword.value = '';
+                        }
                     } else {
-                        // alert("User does not exist")
+                        errorLabel.style.display = 'block';
+                        errorLabel.innerHTML = 'Account Does not Exist! Please check the user name again!'
+                        enterPassword.value = '';
+                        enterName.value = '';
                         nameExistance = 0;
                     }
                 })
         }
 
-        function updateData() {
+        function checkDetails() {
+            if ((enterName.value.replace(/\s+/g, '') == '') || (enterPassword.value.replace(/\s+/g, '') == '')) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "Please fill all the fields";
 
-            update(ref(dv, "Users/" + "the folder of which data has to be updated"), {
-                LoginCount: "The new value"
-            })
-                .then(() => {
-                    alert("Data Updated Successfully")
-                })
-                .catch((error) => {
-                    alert(error)
-                })
-        }
-        function removeData() {
-            remove(ref(db, "Users/" + "the folder that has to be removed"))
-                .then(() => {
-                    alert("Data Removed Successfully");
-                })
-                .catch((error) => {
-                    alert(error);
-                })
-        }
-        function login() {
+            } else if (enterName.value.replace(/\s+/g, '') == '') {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "Please Enter A Valid Name";
+            } else if (enterPassword.value.replace(/\s+/g, '') == '') {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "Please Enter the Password";
+            } else if ((enterName.value.includes('.')) || (enterName.value.includes('$')) || (enterName.value.includes('/')) || (enterName.value.includes('[')) || (enterName.value.includes(']'))) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "Username Cannot contain the characters . $ [ ] /";
+            } else if ((enterPassword.value.includes('.')) || (enterPassword.value.includes('$')) || (enterPassword.value.includes('/')) || (enterPassword.value.includes('[')) || (enterPassword.value.includes(']'))) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "Password Cannot contain the characters . $ [ ] /";
+            } else {
+                findData()
+            }
+
 
         }
-        // gobtn.addEventListener('click', insertData);
+
+
+        loginbtn.addEventListener('click', checkDetails);
+
+        window.onbeforeunload = function () {
+            return 'Are you sure you want to leave?';
+        };
+
     </script>
 </body>
 
