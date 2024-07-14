@@ -2,111 +2,135 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            /* scale: 0.98; */
-            font-family: Arial, sans-serif;
-            font-size: 1vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: black;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* Body Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: black;
+    }
 
-        .navbar {
-            color: aqua;
-            border: 2px solid rgb(7, 229, 250);
-            border-radius: 12px;
-            position: fixed;
-            width: 97%;
-            height: 11%;
-            top: 2%;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            background-color: rgb(36, 29, 52);
-        }
+    /* Navbar Styles */
+    .navbar {
+      padding: 20px;
+      color: aqua;
+      border: 2px solid rgb(7, 229, 250);
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgb(36, 29, 52);
+      margin-bottom: 10px; /* Add a small margin for spacing */
+    }
 
-        .navleftcontents {
-            display: flex;
-            flex-direction: row;
-            min-width: 30%;
-            max-width: 35%;
-            width: 8%;
-            margin-left: 2%;
-            gap: 15%;
-        }
+    .navleftcontents,
+    .navrightcontents {
+      display: flex;
+      align-items: center;
+      font-size: 1.2rem;
+      /* Base font size */
+    }
 
+    .navleftcontents {
+      gap: 15px;
+    }
 
-        .navrightcontents {
-            display: flex;
-            flex-direction: row;
-            /* min-width: 30%;
-            max-width: 35%; */
-            position: fixed;
-            right: 0.5%;
-            width: 20%;
-            gap: 7%;
-        }
+    .navrightcontents {
+      gap: 10px;
+    }
 
-        .introcontents {
-            /* border-radius: 12px; */
-            border: 2px solid aqua;
-            font-size: 1vw;
-            color: aqua;
-            width: 97%;
-            max-width: 99%;
-            margin-left: 10%;
-            margin-right: 10%;
-            overflow-x: hidden;
-            position: absolute;
-            top: 15.8%;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            /* border: 2px solid white; */
-            background-color: rgb(19, 16, 78);
-            align-items: center;
-        }
+    /* Intro Content Styles */
+    .introcontents {
+      border: 2px solid aqua;
+      color: aqua;
+      padding: 20px;
+      /* Add padding for content */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgb(19, 16, 78);
+    }
 
-        .knowmore{
-            width: 100%;;
-            align-items: left;
+    h1 {
+      font-size: 2.2rem;
+      /* Base font size */
+      color: rgb(7, 246, 210);
+      margin-bottom: 10px;
+      /* Add some margin */
+    }
 
-        }
-        .links{
-            font-size: large;
-            color: greenyellow;
-        }
-    </style>
+    img {
+      max-width: 30%;
+      /* Adjust image size to be smaller */
+      margin-bottom: 10px;
+      /* Add some margin */
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      /* Base font size */
+      margin-bottom: 10px;
+      /* Add some margin */
+    }
+
+    .knowmore {
+      width: 100%;
+      text-align: left;
+      /* Left align content */
+    }
+
+    .links {
+      font-size: 1rem;
+      /* Base font size */
+      color: greenyellow;
+    }
+
+    /* Media Queries for Smaller Screens */
+    @media (max-width: 768px) {
+
+      /* Reduce font size for mobile devices */
+      .navbar,
+      .introcontents h1,
+      .introcontents h2,
+      .knowmore h2,
+      .links {
+        font-size: 0.8em;
+        /* Adjust as needed for desired size */
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="navbar">
-        <div class="navleftcontents">
-
-        </div>
-        <div class="navrightcontents">
-            <h4>Login</h4>
-            <h4>Sign Up</h4>
-        </div>
+  <div class="navbar">
+    <div class="navleftcontents">
     </div>
-    <div class="introcontents">
-        <h1 style="font-size: 3vw; color:rgb(7, 246, 210);">Welcome to </h1>
-        <img src="lgodiaplay1.png" alt="the34thbatch" style="max-width: 25%;">
-        <h2>A platform for the Immortals of The 34th Batch to connect to eachother</h2>
-        <div class="knowmore">
-            <h2>Know more about the Site's Functioning</h2>
-            <ol>
-                <li><a href="" class="links">Purpose</a></li>
-                <li><a href="" class="links">Friends</a></li>
-                <li><a href="" class="links">Slam Book</a></li>
-            </ol>
+    <div class="navrightcontents">
+      <h4>Login</h4>
+      <h4>Sign Up</h4>
+    </div>
+  </div>
+  <div class="introcontents">
+    <h1>Welcome to </h1>
+    <img src="lgodiaplay1.png" alt="the34thbatch">
+    <h2>A platform for the Immortals of The 34th Batch to connect to eachother</h2>
+    <div class="knowmore">
+      <h2>Know more about the Site's Functioning</h2>
+      <ol>
+        <li><a href="" class="links">Purpose</a></li>
+        <li><a href="" class="links">Friends</a></li>
+        <li><a href="" class="links">Slam Book</a></li>
+      </ol>
+      <h2>The website is still under development and may take time for completing</h2>
+      <h2>The developer of the website i.e SZY is unavailable
+</h2>
         </div>
     </div>
 
