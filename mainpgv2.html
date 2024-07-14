@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            /* scale: 0.98; */
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: black;
+        }
+
+        .navbar {
+            color: aqua;
+            border: 2px solid rgb(7, 229, 250);
+            border-radius: 12px;
+            position: fixed;
+            width: 97%;
+            height: 11%;
+            top: 2%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: rgb(36, 29, 52);
+        }
+
+        .navleftcontents {
+            display: flex;
+            flex-direction: row;
+            min-width: 30%;
+            max-width: 35%;
+            width: 8%;
+            margin-left: 2%;
+            gap: 15%;
+        }
+
+
+        .navrightcontents {
+            display: flex;
+            flex-direction: row;
+            /* min-width: 30%;
+            max-width: 35%; */
+            position: fixed;
+            right: 0.5%;
+            width: 20%;
+            gap: 7%;
+        }
+
+        .introcontents {
+            /* border-radius: 12px; */
+            border: 2px solid aqua;
+            font-size: medium;
+            color: aqua;
+            width: 97%;
+            max-width: 99%;
+            margin-left: 10%;
+            margin-right: 10%;
+            overflow-x: hidden;
+            position: absolute;
+            top: 15.8%;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            /* border: 2px solid white; */
+            background-color: rgb(19, 16, 78);
+            align-items: center;
+        }
+
+        .knowmore{
+            width: 100%;;
+            align-items: left;
+
+        }
+        .links{
+            font-size: large;
+            color: greenyellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navleftcontents">
+
+        </div>
+        <div class="navrightcontents">
+            <h4>Login</h4>
+            <h4>Sign Up</h4>
+        </div>
+    </div>
+    <div class="introcontents">
+        <h1 style="font-size: 288%; color:rgb(7, 246, 210);">Welcome to </h1>
+        <img src="lgodiaplay1.png" alt="the34thbatch" width="30%">
+        <h2>A platform for the Immortals of The 34th Batch to connect to eachother</h2>
+        <div class="knowmore">
+            <h2>Know more about the Site's Functioning</h2>
+            <ol>
+                <li><a href="" class="links">Purpose</a></li>
+                <li><a href="" class="links">Friends</a></li>
+                <li><a href="" class="links">Slam Book</a></li>
+            </ol>
+        </div>
+    </div>
+
+</body>
+
+</html>
