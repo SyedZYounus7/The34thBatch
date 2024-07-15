@@ -99,6 +99,19 @@
       font-family: 'MineCrafter', sans-serif;
     }
 
+    #loginbtn{
+      font-size: 1.4rem;
+      color: aquamarine;
+      border: 2px solid aqua;
+      background-color: transparent;
+    }
+    #createaccbtn{
+      font-size: 1.4rem;
+      color: aquamarine;
+      border: 2px solid aqua;
+      background-color: transparent;
+    }
+
     /* Media Queries for Smaller Screens */
     @media (max-width: 768px) {
 
@@ -120,8 +133,8 @@
     <div class="navleftcontents">
     </div>
     <div class="navrightcontents">
-      <h4>Login</h4>
-      <h4>Sign Up</h4>
+      <button id="loginbtn">Login</button>
+      <button id="createaccbtn">Sign Up</button>
     </div>
   </div>
   <div class="introcontents">
@@ -141,6 +154,21 @@
       <h3 class="purposetext">This platform serves as a gathering place for the members of The 34th Batch, allowing them to share their thoughts and experiences with whomever they choose</h3>
     </div>
   </div>
+
+
+  <script>
+    var loginbtn = document.querySelector("#loginbtn");
+    loginbtn.addEventListener('click',gotologin)
+    createaccbtn.addEventListener('click',gotocreateacc)
+    var createaccbtn = document.querySelector("#createaccbtn");
+    function gotologin(){
+      location.href = 'lgin.html';
+    }
+    function gotocreateacc(){
+      location.href = 'crAcc.html';
+    }
+
+  </script>
 
 </body>
 
