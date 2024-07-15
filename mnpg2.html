@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The34thBatch</title>
+</head>
+<style>
+    body {
+        background-color: rgb(0, 0, 0);
+        margin: 0;
+    }
+
+    .headBar {
+        font-size: 13px;
+        width: 100%;
+        height: 6.5%;
+        max-width: 99%;
+        position: fixed;
+        top: 0.6%;
+        left: 0.3%;
+        display: flex;
+        flex-direction: row;
+        border: 2px solid white;
+        background-color: rgb(13, 4, 56);
+    }
+
+    .contentSection {
+        font-size: medium;
+        width: 90%;
+        max-width: 99%;
+        margin-left: 10%;
+        margin-right: 10%;
+        overflow-x: hidden;
+        position: absolute;
+        top: 7.8%;
+        left: 0.3%;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        /* border: 2px solid white; */
+        background-color: black;
+    }
+
+    .headInner {
+        width: 100%;
+        color: aqua;
+        display: flex;
+        align-items: center;
+    }
+
+    .headInner h1 {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        min-width: 40%;
+        padding-left: 1.3%;
+    }
+
+    #switchContents {
+        display: flex;
+        flex-direction: row;
+        min-width: 30%;
+        max-width: 35%;
+        width: 8%;
+        margin-left: 42%;
+        gap: 15%;
+    }
+
+    #friends,
+    #slamBook {
+        font-size: large;
+        color: rgb(98, 237, 12);
+        background-color: transparent;
+    }
+
+    #friends:hover,
+    #slamBook:hover {
+        color: rgb(255, 141, 47);
+    }
+
+    #profile {
+        color: rgb(251, 246, 246);
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        padding: 1%;
+        position: absolute;
+        width: 99%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #profile #userName {
+        border: 2px solid white;
+    }
+
+    #profile #profilehead #editbtn {
+
+        margin-left: 61%;
+        color: white;
+        background-color: rgb(5, 6, 78);
+        font-size: medium;
+    }
+
+    #profile #profilehead {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-bottom: 1%;
+    }
+
+    #profile #profilebio {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    #profile #profilebio #bio {
+        color: aqua;
+        background-color: transparent;
+    }
+</style>
+
+<body>
+    <div class="headBar">
+        <div class="headInner">
+            <h1 id="State">Profile</h1>
+            <div id="switchContents">
+                <label id="friends">Friends</label>
+                <label id="slamBook">Slam Book</label>
+            </div>
+        </div>
+    </div>
+    <div class="contentSection">
+        
+        <div id="profile">
+            <div id="profilehead">
+                <h1 id="userName"></h1>
+                <button id="editbtn" type="button">Edit Profile</button>
+            </div>
+            <h1>This page is still under development</h1>
+            <h1>It may take a lot of time for it to be complete</h1>
+            <h1>If there is any issue feel free to ask it to __anonymous.being07__, you might get answer a little late due to the absence of the developer of the website i.e "You know who i am"</h1>
+
+            <div id="profilebio">
+                <label id="userbio" for="bio"></label>
+                <input hidden id="bio" type="text" disabled>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfItoAYukh28zgMoYgehQbSA1WjVmjkjg",
+            authDomain: "the34thbatch-88ecf.firebaseapp.com",
+            databaseURL: "https://the34thbatch-88ecf-default-rtdb.firebaseio.com",
+            projectId: "the34thbatch-88ecf",
+            storageBucket: "the34thbatch-88ecf.appspot.com",
+            messagingSenderId: "106571997226",
+            appId: "1:106571997226:web:d49c6cb1155690fc3ca353"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"
+
+        const db = getDatabase();
+
+
+        const storedUsername = localStorage.getItem('username');
+        const storedPassword = localStorage.getItem('password');
+
+
+        console.log(storedUsername, storedPassword)
+
+        const actname = atob(storedUsername);
+        const actpass = atob(storedPassword);
+
+        // console.log(actname, actpass)
+
+        var stage = localStorage.getItem('stage')
+
+        var userName = document.querySelector("#userName")
+        var userbio = document.querySelector("#userbio")
+        var bioinp = document.querySelector("#bio")
+
+        async function getBio() {
+
+            try {
+                const dbref = ref(db);
+                const snapshot = await get(child(dbref, "Users/" + actname));
+
+                if (snapshot.exists()) {
+                    if (actpass == snapshot.val().Password) {
+                        console.log(snapshot.val().Bio)
+                        return 'hello';
+                    }
+                } else {
+                    return '';
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                alert("An Unknown Error Occurred")
+                return -1; // Handle the error case appropriately
+            }
+        }
+
+        if (stage == 'profile') {
+            profileStage()
+            // localStorage.setItem('stage','profile')
+        } else if (stage == 'friends') {
+
+        }
+
+        function profileStage(uname) {
+            userName.innerHTML = actname;
+            userbio.innerHTML = getBio()
+
+        }
+
+        function friendsStage() {
+
+        }
+
+    </script>
+</body>
+
+</html>
