@@ -126,7 +126,7 @@
                     if (snapshot.exists()) {
                         if (actpass == snapshot.val().Password) {
                             console.log("Account Logged In")
-                            location.href = 'mnpg2.html';
+                            location.href = 'mnpg.html';
                         }
                     } else {
                         console.log("Account not logged in")
@@ -148,7 +148,7 @@
             localStorage.setItem('username', testName);
             localStorage.setItem('password', testPass);
             localStorage.setItem('stage','profile')
-            location.href = 'mnpg2.html';
+            location.href = 'mnpg.html';
         }
 
         function findData() {
