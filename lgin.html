@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
     <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
@@ -23,14 +24,16 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            background-color:black;
         }
 
         .container {
             width: 400px;
             padding: 20px;
+            color:rgb(15, 231, 227);
             border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: #f9f9f9;
+            background-color: #1c1b31;
         }
 
         input[type="text"],
@@ -43,13 +46,18 @@
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 3px;
+            background-color: #100f0f;
+            color: white;
         }
 
         button {
-            background-color: rgb(15, 231, 15);
-            color: #100f0f;
-            border: none;
+            background-color: #171339;
+            border: 1px solid white;
             cursor: pointer;
+        }
+        button:hover {
+            filter: brightness(70%);
+            /* Adjust the percentage (0 to 100) */
         }
 
         button:active {
@@ -67,16 +75,13 @@
         <input type="password" placeholder="Enter Password" id="enterPassword">
         <label for="errorLabel" id="errorLabel"></label>
         <button id="loginbtn">Login</button>
-        <a style="color:rgb(246, 6, 186);" id="createAccount" onclick="location.href='crAcc.html'">Create an Account</a>
+        <a style="color:rgb(195, 5, 27);" id="createAccount" onclick="location.href='crAcc.html'">Create an Account</a>
 
     </div>
     <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
 
-        // Your web app's Firebase configuration
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyAfItoAYukh28zgMoYgehQbSA1WjVmjkjg",
             authDomain: "the34thbatch-88ecf.firebaseapp.com",
@@ -99,10 +104,52 @@
         var loginbtn = document.querySelector('#loginbtn');
         var errorLabel = document.querySelector('#errorLabel')
 
-        // enterName.addEventListener("input", function (event) {
-        //     event.target.value = event.target.value.toUpperCase();
-        //     event.target.value = event.target.value.replace(/\s+/g, '');
-        // });
+
+        const storedUsername = localStorage.getItem('username');
+        const storedPassword = localStorage.getItem('password');
+
+        console.log(storedUsername, storedPassword)
+
+        const actname = atob(storedUsername);
+        const actpass = atob(storedPassword);
+
+        console.log(actname, actpass)
+
+        var entered = 0;
+
+        if (entered == 0) {
+            const dbref = ref(db);
+
+            get(child(dbref, "Users/" + actname))
+                .then((snapshot) => {
+
+                    if (snapshot.exists()) {
+                        if (actpass == snapshot.val().Password) {
+                            console.log("Account Logged In")
+                            location.href = 'mnpg2.html';
+                        }
+                    } else {
+                        console.log("Account not logged in")
+                        // main()
+                    }
+                })
+            entered = entered + 1;
+        } else {
+            // sidebar.style.display = 'none';
+            // errorHeading.style.display = 'none';
+            // errorHeading.innerHTML = 'You Are not logged in';
+            console.log("Why is it here?")
+        }
+
+
+        function login() {
+            const testName = btoa(enterName.value);
+            const testPass = btoa(enterPassword.value);
+            localStorage.setItem('username', testName);
+            localStorage.setItem('password', testPass);
+            localStorage.setItem('stage','profile')
+            location.href = 'mnpg2.html';
+        }
 
         function findData() {
             var nameExistance;
@@ -116,8 +163,9 @@
                         console.log(enterPassword.value + '\n' + snapshot.val().Password)
                         if (enterPassword.value == snapshot.val().Password) {
                             console.log("Login Successful")
+                            login()
                         } else {
-                            // errorLabel.style.display = '';
+                            errorLabel.style.display = 'block';
                             errorLabel.style.color = 'red';
                             errorLabel.innerHTML = 'Incorrect Password! Try Again';
                             enterPassword.value = '';
@@ -135,7 +183,7 @@
         function checkDetails() {
             errorLabel.style.display = 'block';
             errorLabel.innerHTML = 'Loading...';
-            
+
             if ((enterName.value.replace(/\s+/g, '') == '') || (enterPassword.value.replace(/\s+/g, '') == '')) {
                 errorLabel.style.display = 'block';
                 errorLabel.innerHTML = "Please fill all the fields";
