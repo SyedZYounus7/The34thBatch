@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The34thBatch</title>
+    <style>
+        /* Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: black;
+            align-items: center;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            width: 98%;
+
+            padding: 8px;
+            color: aqua;
+            border: 2px solid rgb(7, 229, 250);
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* background-color: rgb(36, 29, 52); */
+            background-color: #0D1B2A;
+            margin-bottom: 8px;
+            /* Add a small margin for spacing */
+        }
+
+        .navleftcontents,
+        .navrightcontents {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+            /* Base font size */
+        }
+
+        .navleftcontents {
+            gap: 15px;
+        }
+
+        .navrightcontents {
+            gap: 10px;
+        }
+
+        /* Intro Content Styles */
+        .contentdisplay {
+            margin-top: 3.5em;
+            /* position:relative; */
+            top:10%;
+            width:97%;
+            min-height: 90%;
+            border: 2px solid aqua;
+            color: aqua;
+            /* padding: 20px; */
+            /* Add padding for content */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* background-color: rgb(19, 16, 78); */
+            background: #0D1B2A;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            /* Base font size */
+            color: rgb(7, 246, 210);
+            margin-bottom: 10px;
+            /* Add some margin */
+        }
+
+        img {
+            max-width: 30%;
+            /* Adjust image size to be smaller */
+            margin-bottom: 10px;
+            /* Add some margin */
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            /* Base font size */
+            margin-bottom: 10px;
+            /* Add some margin */
+        }
+
+        .profilesection {
+            width: 100%;
+            align-items: center;
+        }
+
+        .links {
+            font-size: 1rem;
+            /* Base font size */
+            color: greenyellow;
+        }
+
+        #profilebtn,#slambookbtn {
+            width: auto;
+            font-size: 1.2rem;
+            color: aquamarine;
+            border: 2px solid aqua;
+            background-color: transparent;
+        }
+        #state{
+            /* border:2px solid aqua; */
+            width: auto;
+            font-size:1.3em;
+        }
+
+        .profilehead{
+            margin-left: 0.29em;
+        }
+
+
+
+        /* Media Queries for Smaller Screens */
+        @media (max-width: 768px) {
+
+            /* Reduce font size for mobile devices */
+            .navbar,
+            .contentdisplay h1,
+            .contentdisplay h2,
+            .profilesection h2,
+            .links {
+                font-size: 0.8em;
+                /* Adjust as needed for desired size */
+            }
+            .navbar{
+                width:96%;
+            }
+            .navbar .navrightcontents #profilebtn , #slambookbtn{
+                font-size: 0.5em;
+            }
+            .contentdisplay .profilesection #profilehead #userName{
+                font-size:1em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navleftcontents">
+            <label id="state">Profile</label>
+        </div>
+        <div class="navrightcontents">
+            <button id="profilebtn">Profile</button>
+            <button id="slambookbtn">Slam Book</button>
+        </div>
+    </div>
+    <div class="contentdisplay">
+        
+        <div class="profilesection">
+            <div id="profilehead" class="profilehead">
+                <h1 id="userName"></h1>
+            </div>
+            <div class="profilebio">
+                <h2 style="color:red; text-align: center;">This page is currently under development</h2>
+                <h2 style="color:red; text-align: center;">It may take a long time from now (15-07-2024 Monday) for this page to update</h2>
+                <h2 style="color:red; text-align: center;">If you have any suggestions for this page, you may contact co-producer, __anonymous.being07__  </h2>
+                <h2 style="color:red; text-align: center;">You might get late responce to your suggestions due to unavailability of the developer (You know who the developer is)</h2>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfItoAYukh28zgMoYgehQbSA1WjVmjkjg",
+            authDomain: "the34thbatch-88ecf.firebaseapp.com",
+            databaseURL: "https://the34thbatch-88ecf-default-rtdb.firebaseio.com",
+            projectId: "the34thbatch-88ecf",
+            storageBucket: "the34thbatch-88ecf.appspot.com",
+            messagingSenderId: "106571997226",
+            appId: "1:106571997226:web:d49c6cb1155690fc3ca353"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"
+
+        const db = getDatabase();
+
+
+        const storedUsername = localStorage.getItem('username');
+        const storedPassword = localStorage.getItem('password');
+
+
+        console.log(storedUsername, storedPassword)
+
+        const actname = atob(storedUsername);
+        const actpass = atob(storedPassword);
+
+        // console.log(actname, actpass)
+
+        var stage = localStorage.getItem('stage')
+
+        var userName = document.querySelector("#userName")
+        var userbio = document.querySelector("#userbio")
+        var bioinp = document.querySelector("#bio")
+
+        async function getBio() {
+
+            try {
+                const dbref = ref(db);
+                const snapshot = await get(child(dbref, "Users/" + actname));
+
+                if (snapshot.exists()) {
+                    if (actpass == snapshot.val().Password) {
+                        console.log(snapshot.val().Bio)
+                        return 'hello';
+                    }
+                } else {
+                    return '';
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                alert("An Unknown Error Occurred")
+                return -1; // Handle the error case appropriately
+            }
+        }
+
+        if (stage == 'profile') {
+            profileStage()
+            // localStorage.setItem('stage','profile')
+        } else if (stage == 'friends') {
+
+        }
+
+        function profileStage(uname) {
+            userName.innerHTML = actname;
+            // userbio.innerHTML = getBio()
+
+        }
+
+        function friendsStage() {
+
+        }
+
+    </script>
+
+</body>
+
+</html>
