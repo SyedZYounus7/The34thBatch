@@ -176,21 +176,12 @@
 
         }
         function createAcc(Name, password, year, month, day, creationDate) {
-            console.log(Name)
+            /*console.log(Name)
             console.log(password)
             console.log(year)
             console.log(month)
-            console.log(day)
-     /*       const date = new Date();
-
-            let day = date.getDate();
-            let month = date.getMonth() + 1;
-            let year = date.getFullYear();
-
-// This arrangement can be altered based on how we want the date's format to appear.
-            let currentDate = `${day}-${month}-${year}`;
-            console.log(currentDate);
-            */
+            console.log(day)*/
+     
             set(ref(db, "Users/" + enterFullName.value), {
                 LoginCount: 0,
                 DOB: year + '-' + month + '-' + day,
@@ -199,7 +190,7 @@
             })
                 .then(() => {
                     errorLabel.style.display = 'block';
-                    //backbtn.style.display ='none';
+                    backbtn.style.display ='none';
                     //laters.style.display ='none';
                     enterp.style.display = "none";
                     entercp.style.display ="none";
@@ -266,7 +257,17 @@
             var month = parseInt(dobParts[1]);
             var day = parseInt(dobParts[2]);
 
-            var creationDate = new Date()
+            //var creationDate = new Date()
+            const date = new Date();
+
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+
+// This arrangement can be altered based on how we want the date's format to appear.
+            let currentDate = `${day}-${month}-${year}`;
+            console.log(currentDate);
+            
 
             if ((passwordOnce.value.replace(/\s+/g, '') == '') || (passwordFinal.value.replace(/\s+/g, '') == '')) {
                 errorLabel.style.display = 'block';
@@ -285,8 +286,8 @@
                 passwordOnce.value = '';
                 passwordFinal.value = '';
             } else {
-                var doc = [String(creationDate.getFullYear()), String(creationDate.getMonth()), String(creationDate.getDay())]
-                createAcc(enterFullName.value, passwordFinal.value, year, month, day, doc);
+                //var doc = [String(creationDate.getFullYear()), String(creationDate.getMonth()), String(creationDate.getDay())]
+                createAcc(enterFullName.value, passwordFinal.value, year, month, day, currentDate);
             }
 
         }
