@@ -173,17 +173,26 @@
             errorLabel.style.display = 'none';
 
         }
-        function createAcc(Name, password, year, month, day, creationDate) {
-            console.log(Name)
+        function createAcc(Name, password, year, month, day) {
+            /*console.log(Name)
             console.log(password)
             console.log(year)
             console.log(month)
-            console.log(day)
-            console.log(creationDate)
+            console.log(day)*/
+            const date = new Date();
+
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+
+// This arrangement can be altered based on how we want the date's format to appear.
+            let currentDate = `${day}-${month}-${year}`;
+            console.log(currentDate);
+            
             set(ref(db, "Users/" + enterFullName.value), {
                 LoginCount: 0,
                 DOB: year + '-' + month + '-' + day,
-                AccountCreationDate: creationDate,
+                AccountCreationDate: currentDate,
                 Password: password
             })
                 .then(() => {
@@ -253,7 +262,7 @@
             var month = parseInt(dobParts[1]);
             var day = parseInt(dobParts[2]);
 
-            var creationDate = new Date()
+            //var creationDate = new Date()
 
             if ((passwordOnce.value.replace(/\s+/g, '') == '') || (passwordFinal.value.replace(/\s+/g, '') == '')) {
                 errorLabel.style.display = 'block';
@@ -272,8 +281,8 @@
                 passwordOnce.value = '';
                 passwordFinal.value = '';
             } else {
-                var doc = [String(creationDate.getFullYear()), String(creationDate.getMonth()), String(creationDate.getDay())]
-                createAcc(enterFullName.value, passwordFinal.value, year, month, day, doc);
+                //var doc = [String(creationDate.getFullYear()), String(creationDate.getMonth()), String(creationDate.getDay())]
+                createAcc(enterFullName.value, passwordFinal.value, year, month, day);
             }
 
         }
