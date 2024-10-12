@@ -95,9 +95,9 @@
         <input type="text" id="enterFullName" name="fullName" class="initials">
         <label for="dob" class="initials">Date of Birth:</label>
         <input type="date" id="enterdob" name="dob" class="initials">
-        <label for="passwordOnce" class="laters">Enter Password</label>
+        <label for="passwordOnce"  class="laters  enterPasLabel">Enter Password</label>
         <input type="password" id="passwordOnce" class="laters">
-        <label for="confirmPassword" class="laters">Confirm Password</label>
+        <label for="confirmPassword" class="laters  confPassLabel">Confirm Password</label>
         <input type="password" id="passwordFinal" class="laters">
         <label for="invalid" id="errorLabel"></label>
         <button type="submit" id="proceed1" class="initials">Proceed</button>
@@ -188,6 +188,8 @@
             })
                 .then(() => {
                     errorLabel.style.display = 'block';
+                    backbtn.style.display ='block';
+                    laters.style.display ='block';
                     errorLabel.innerHTML = 'Account Created Successfully\nPlease go Back to login Page and login to your Account';
                     passwordOnce.style.display = 'none';
                     passwordFinal.style.display = 'none';
