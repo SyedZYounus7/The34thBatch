@@ -2,169 +2,176 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The34thBatch</title>
-  <style>
-    /* Body Styles */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background-color: black;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The34thBatch</title>
+    <style>
+        /* Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: black;
+            align-items: center;
+        }
 
-    /* Navbar Styles */
-    .navbar {
-      padding: 8px;
-      color: aqua;
-      border: 2px solid rgb(7, 229, 250);
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      /* background-color: rgb(36, 29, 52); */
-      background-color: #0D1B2A;
-      margin-bottom: 8px;
-      /* Add a small margin for spacing */
-    }
+        /* Navbar Styles */
+        .navbar {
+            position:fixed;
+            padding: 8px;
+            min-width:97%;
+            color: aqua;
+            border: 2px solid rgb(7, 229, 250);
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* background-color: rgb(36, 29, 52); */
+            background-color: #0D1B2A;
+            margin-bottom: 8px;
+            /* Add a small margin for spacing */
+        }
 
-    .navleftcontents,
-    .navrightcontents {
-      display: flex;
-      align-items: center;
-      font-size: 1.2rem;
-      /* Base font size */
-    }
+        .navleftcontents,
+        .navrightcontents {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+            /* Base font size */
+        }
 
-    .navleftcontents {
-      gap: 15px;
-    }
+        .navleftcontents {
+            gap: 15px;
+        }
 
-    .navrightcontents {
-      gap: 10px;
-    }
+        .navrightcontents {
+            gap: 10px;
+        }
 
-    /* Intro Content Styles */
-    .introcontents {
-      border: 2px solid aqua;
-      color: aqua;
-      padding: 20px;
-      /* Add padding for content */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      /* background-color: rgb(19, 16, 78); */
-      background: #0D1B2A;
-    }
+        /* Intro Content Styles */
+        .introcontents {
+            margin-top: 3.5em;
+            min-width:96%;
+            border: 2px solid aqua;
+            color: aqua;
+            padding: 20px;
+            /* Add padding for content */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* background-color: rgb(19, 16, 78); */
+            background: #0D1B2A;
+        }
 
-    h1 {
-      font-size: 2.2rem;
-      /* Base font size */
-      color: rgb(7, 246, 210);
-      margin-bottom: 10px;
-      /* Add some margin */
-    }
+        h1 {
+            font-size: 2.2rem;
+            /* Base font size */
+            color: rgb(7, 246, 210);
+            margin-bottom: 10px;
+            /* Add some margin */
+        }
 
-    img {
-      max-width: 30%;
-      /* Adjust image size to be smaller */
-      margin-bottom: 10px;
-      /* Add some margin */
-    }
+        img {
+            max-width: 30%;
+            /* Adjust image size to be smaller */
+            margin-bottom: 10px;
+            /* Add some margin */
+        }
 
-    h2 {
-      font-size: 1.2rem;
-      /* Base font size */
-      margin-bottom: 10px;
-      /* Add some margin */
-    }
+        h2 {
+            font-size: 1.2rem;
+            /* Base font size */
+            margin-bottom: 10px;
+            /* Add some margin */
+        }
 
-    .knowmore {
-      width: 100%;
-      text-align: left;
-      /* Left align content */
-    }
+        .knowmore {
+            width: 100%;
+            text-align: left;
+            /* Left align content */
+        }
 
-    .links {
-      font-size: 1rem;
-      /* Base font size */
-      color: greenyellow;
-    }
+        .links {
+            font-size: 1rem;
+            /* Base font size */
+            color: greenyellow;
+        }
 
-    .purposetext {
-      font-family: 'MineCrafter', sans-serif;
-    }
+        .purposetext {
+            font-family: 'MineCrafter', sans-serif;
+        }
 
-    #loginbtn{
-      font-size: 1.4rem;
-      color: aquamarine;
-      border: 2px solid aqua;
-      background-color: transparent;
-    }
-    #createaccbtn{
-      font-size: 1.4rem;
-      color: aquamarine;
-      border: 2px solid aqua;
-      background-color: transparent;
-    }
+        #loginbtn {
+            font-size: 1.4rem;
+            color: aquamarine;
+            border: 2px solid aqua;
+            background-color: transparent;
+        }
 
-    /* Media Queries for Smaller Screens */
-    @media (max-width: 768px) {
+        #createaccbtn {
+            font-size: 1.4rem;
+            color: aquamarine;
+            border: 2px solid aqua;
+            background-color: transparent;
+        }
 
-      /* Reduce font size for mobile devices */
-      .navbar,
-      .introcontents h1,
-      .introcontents h2,
-      .knowmore h2,
-      .links {
-        font-size: 0.8em;
-        /* Adjust as needed for desired size */
-      }
-    }
-  </style>
+        /* Media Queries for Smaller Screens */
+        @media (max-width: 768px) {
+
+            /* Reduce font size for mobile devices */
+            .navbar,
+            .introcontents h1,
+            .introcontents h2,
+            .knowmore h2,
+            .links {
+                font-size: 0.8em;
+                /* Adjust as needed for desired size */
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="navbar">
-    <div class="navleftcontents">
+    <div class="navbar">
+        <div class="navleftcontents">
+        </div>
+        <div class="navrightcontents">
+            <button id="loginbtn">Login</button>
+            <button id="createaccbtn">Sign Up</button>
+        </div>
     </div>
-    <div class="navrightcontents">
-      <button id="loginbtn">Login</button>
-      <button id="createaccbtn">Sign Up</button>
+    <div class="introcontents">
+        <h1 style="color: #5A5A5A;">Welcome to </h1>
+        <img src="The34thBatchlgo2 main copy.png" alt="the34thbatch">
+        <h2 style="color:#FFFFFF">A platform for the Immortals of The 34th Batch to assemble</h2>
+        <div class="knowmore">
+
+            <h2 style="color:red;">The website is still under development and may take time for completing</h2>
+
+            <h1 style="COLOR:#CCCCCC;">Know more about the Site's Functioning</h1>
+            <h1 style="color:#0074D9">Purpose of this Platform</h1>
+            <h3 class="purposetext">This platform serves as a gathering place for the members of The 34th Batch,
+                allowing them to share their thoughts and experiences with whomever they choose</h3>
+        </div>
     </div>
-  </div>
-  <div class="introcontents">
-    <h1 style="color: #5A5A5A;">Welcome to </h1>
-    <img src="The34thBatchlgo2 main copy.png" alt="the34thbatch">
-    <h2 style="color:#FFFFFF">A platform for the Immortals of The 34th Batch to assemble</h2>
-    <div class="knowmore">
-
-      <h2 style="color:red;">The website is still under development and may take time for completing</h2>
-      
-      <h1 style="COLOR:#CCCCCC;">Know more about the Site's Functioning</h1>
-      <h1 style="color:#0074D9">Purpose of this Platform</h1>
-      <h3 class="purposetext">This platform serves as a gathering place for the members of The 34th Batch, allowing them to share their thoughts and experiences with whomever they choose</h3>
-    </div>
-  </div>
 
 
-  <script>
-    var loginbtn = document.querySelector("#loginbtn");
-    var createaccbtn = document.querySelector("#createaccbtn");
-    loginbtn.addEventListener('click',gotologin)
-    createaccbtn.addEventListener('click',gotocreateacc)
-    function gotologin(){
-      location.href = 'lgin.html';
-    }
-    function gotocreateacc(){
-      location.href = 'crAcc.html';
-    }
+    <script>
+        var loginbtn = document.querySelector("#loginbtn");
+        var createaccbtn = document.querySelector("#createaccbtn");
+        loginbtn.addEventListener('click', gotologin)
+        createaccbtn.addEventListener('click', gotocreateacc)
+        function gotologin() {
+            location.href = 'lgin.html';
+        }
+        function gotocreateacc() {
+            location.href = 'crAcc.html';
+        }
 
-  </script>
+    </script>
 
 </body>
 
