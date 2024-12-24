@@ -147,7 +147,7 @@
     </style>
 </head>
 
-<body>
+<body id="page">
     <div class="navbar">
         <div class="navleftcontents">
             <label id="state">Profile</label>
@@ -194,15 +194,42 @@
 
         const db = getDatabase();
 
-
         const storedUsername = localStorage.getItem('username');
         const storedPassword = localStorage.getItem('password');
+        const actname = atob(storedUsername);
+        const actpass = atob(storedPassword);
+        const page = document.querySelector("body");
+        const originalContent = page.innerHTML;
+
+
+        var entered = 0;
+        if (entered == 0) {
+            const dbref = ref(db);
+
+            get(child(dbref, "Users/" + actname))
+                .then((snapshot) => {
+
+                    if (snapshot.exists()) {
+                        if (actpass == snapshot.val().Password) {
+                            console.log("Account Logged In")
+                            page.innerHTML = originalContent;
+                        }
+                    } else {
+                        page.style.display = 'none';
+                        console.log("Account not logged in")
+                        location.href = "index.html";
+                        page.innerHTML = '';
+                        // main()
+                    }
+                })
+            entered = entered + 1;
+        } else {
+            console.log("Why is it here?")
+        }
 
 
         // console.log(storedUsername, storedPassword)
 
-        const actname = atob(storedUsername);
-        const actpass = atob(storedPassword);
 
         // console.log(actname, actpass)
 
@@ -211,20 +238,23 @@
         var userName = document.querySelector("#userName")
         var userbio = document.querySelector("#userbio")
         var bioinp = document.querySelector("#bio")
-
+        var acclog;
+        // Going back to main page if not logged in
+        
+        
         async function getBio() {
-
+           
             try {
                 const dbref = ref(db);
                 const snapshot = await get(child(dbref, "Users/" + actname));
-
+                
                 if (snapshot.exists()) {
                     if (actpass == snapshot.val().Password) {
                         console.log(snapshot.val().Bio)
                         return 'hello';
                     }
                 } else {
-                    return '';
+                    return false;
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -232,6 +262,8 @@
                 return -1; // Handle the error case appropriately
             }
         }
+        
+        
 
         if (stage == 'profile') {
             profileStage()
