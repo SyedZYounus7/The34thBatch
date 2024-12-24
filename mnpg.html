@@ -212,7 +212,8 @@
                     if (snapshot.exists()) {
                         if (actpass == snapshot.val().Password) {
                             console.log("Account Logged In")
-                            page.innerHTML = originalContent;
+                            // page.innerHTML = originalContent;
+                            everything()
                         }
                     } else {
                         page.style.display = 'none';
@@ -227,7 +228,7 @@
             console.log("Why is it here?")
         }
 
-
+        function everything(){
         // console.log(storedUsername, storedPassword)
 
 
@@ -281,6 +282,7 @@
         function friendsStage() {
 
         }
+    }
 
     </script>
 
