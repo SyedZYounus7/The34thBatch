@@ -123,11 +123,11 @@
         }
 
         #profilebtn:hover {
-            background-color: rgb(255, 17, 80);
+            background-color: rgb(4, 130, 109);
         }
 
         #slambookbtn:hover {
-            background-color: rgb(255, 17, 80);
+            background-color: rgb(4, 130, 109);
         }
 
         /* Media Queries for Smaller Screens */
@@ -166,7 +166,7 @@
         </div>
         <div class="navrightcontents">
             <button id="profilebtn">Profile</button>
-            <button id="slambookbtn">Slam Book</button>
+            <button id="slambookbtn">My Slam Book</button>
         </div>
     </div>
     <div class="contentdisplay">
@@ -285,6 +285,8 @@
                 // localStorage.setItem('stage','profile')
             } else if (stage == 'friends') {
 
+            }else if(stage=='slambook'){
+                slambook()
             }
 
             function profileStage(uname) {
