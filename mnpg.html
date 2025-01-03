@@ -56,8 +56,8 @@
         .contentdisplay {
             margin-top: 3.5em;
             /* position:relative; */
-            top:10%;
-            width:97%;
+            top: 10%;
+            width: 97%;
             min-height: 90%;
             border: 2px solid aqua;
             color: aqua;
@@ -103,24 +103,32 @@
             color: greenyellow;
         }
 
-        #profilebtn,#slambookbtn {
+        #profilebtn,
+        #slambookbtn {
             width: auto;
             font-size: 1.2rem;
             color: aquamarine;
             border: 2px solid aqua;
             background-color: transparent;
         }
-        #state{
+
+        #state {
             /* border:2px solid aqua; */
             width: auto;
-            font-size:1.3em;
+            font-size: 1.3em;
         }
 
-        .profilehead{
+        .profilehead {
             margin-left: 0.29em;
         }
 
+        #profilebtn:hover {
+            background-color: rgb(255, 17, 80);
+        }
 
+        #slambookbtn:hover {
+            background-color: rgb(255, 17, 80);
+        }
 
         /* Media Queries for Smaller Screens */
         @media (max-width: 768px) {
@@ -134,14 +142,18 @@
                 font-size: 0.8em;
                 /* Adjust as needed for desired size */
             }
-            .navbar{
-                width:96%;
+
+            .navbar {
+                width: 96%;
             }
-            .navbar .navrightcontents #profilebtn , #slambookbtn{
+
+            .navbar .navrightcontents #profilebtn,
+            #slambookbtn {
                 font-size: 0.5em;
             }
-            .contentdisplay .profilesection #profilehead #userName{
-                font-size:1em;
+
+            .contentdisplay .profilesection #profilehead #userName {
+                font-size: 1em;
             }
         }
     </style>
@@ -158,15 +170,16 @@
         </div>
     </div>
     <div class="contentdisplay">
-        
+
         <div class="profilesection">
             <div id="profilehead" class="profilehead">
                 <h1 id="userName"></h1>
             </div>
             <div class="profilebio">
                 <h2 style="color:red; text-align: center;">This page is currently under development</h2>
-                <h2 style="color:red; text-align: center;">It may take a long time from now (15-07-2024 Monday) for this page to update</h2>
-<!--                 <h2 style="color:red; text-align: center;">If you have any suggestions for this page, you may contact co-producer, __anonymous.being07__  </h2>
+                <h2 style="color:red; text-align: center;">It may take a long time from now (15-07-2024 Monday) for this
+                    page to update</h2>
+                <!--                 <h2 style="color:red; text-align: center;">If you have any suggestions for this page, you may contact co-producer, __anonymous.being07__  </h2>
                 <h2 style="color:red; text-align: center;">You might get late responce to your suggestions due to unavailability of the developer (You know who the developer is)</h2> -->
 
             </div>
@@ -228,61 +241,63 @@
             console.log("Why is it here?")
         }
 
-        function everything(){
-        // console.log(storedUsername, storedPassword)
+        function everything() {
+            // console.log(storedUsername, storedPassword)
 
 
-        // console.log(actname, actpass)
+            // console.log(actname, actpass)
 
-        var stage = localStorage.getItem('stage')
+            var stage = localStorage.getItem('stage')
 
-        var userName = document.querySelector("#userName")
-        var userbio = document.querySelector("#userbio")
-        var bioinp = document.querySelector("#bio")
-        var acclog;
-        // Going back to main page if not logged in
-        
-        
-        async function getBio() {
-           
-            try {
-                const dbref = ref(db);
-                const snapshot = await get(child(dbref, "Users/" + actname));
-                
-                if (snapshot.exists()) {
-                    if (actpass == snapshot.val().Password) {
-                        console.log(snapshot.val().Bio)
-                        return 'hello';
+            var userName = document.querySelector("#userName")
+            var userbio = document.querySelector("#userbio")
+            var bioinp = document.querySelector("#bio")
+            var acclog;
+            var profilebtn = document.querySelector("#profilebtn")
+            // Going back to main page if not logged in
+
+
+            async function getBio() {
+
+                try {
+                    const dbref = ref(db);
+                    const snapshot = await get(child(dbref, "Users/" + actname));
+
+                    if (snapshot.exists()) {
+                        if (actpass == snapshot.val().Password) {
+                            console.log(snapshot.val().Bio)
+                            return 'hello';
+                        }
+                    } else {
+                        return false;
                     }
-                } else {
-                    return false;
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                    alert("An Unknown Error Occurred")
+                    return -1; // Handle the error case appropriately
                 }
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                alert("An Unknown Error Occurred")
-                return -1; // Handle the error case appropriately
+            }
+
+
+
+            if (stage == 'profile') {
+                profileStage()
+                // localStorage.setItem('stage','profile')
+            } else if (stage == 'friends') {
+
+            }
+
+            function profileStage(uname) {
+                profilebtn.style.borderColor = 'grey';
+                userName.innerHTML = actname;
+                // userbio.innerHTML = getBio()
+
+            }
+
+            function friendsStage() {
+
             }
         }
-        
-        
-
-        if (stage == 'profile') {
-            profileStage()
-            // localStorage.setItem('stage','profile')
-        } else if (stage == 'friends') {
-
-        }
-
-        function profileStage(uname) {
-            userName.innerHTML = actname;
-            // userbio.innerHTML = getBio()
-
-        }
-
-        function friendsStage() {
-
-        }
-    }
 
     </script>
 
