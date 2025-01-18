@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 34th Batch</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 97LVH;
+        }
+
+        #Os {
+            position: sticky;
+            display: flex;
+            top: 23%;
+            ;
+            flex-direction: column;
+            align-items: center;
+            min-width: 54%;
+            min-height: 40lvh;
+        }
+
+        #mnstart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #navbar {
+            display: flex;
+            flex-direction: initial;
+            position: relative;
+            top: 25%;
+            min-width: 10%;
+            min-height: 30px;
+            align-items: center;
+            gap: 15px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        .styler {
+            background-color: #0D1B2A;
+            border: 2px solid rgb(7, 229, 250);
+            border-radius: 12px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: rgb(10, 66, 206);
+        }
+
+        .tier2 {
+            border: 2px solid rgb(7, 229, 250);
+            /* padding: 0.09dvh; */
+        }
+
+        .T_1340 {
+            padding: 4px;
+            color: aqua;
+            font-family: monospace;
+            font-size: 1.5em;
+        }
+
+        .T_1340:hover {
+            border-color: aliceblue;
+            color: cornsilk;
+        }
+
+        .I_1340 {
+            font-size: 1.3rem;
+            color: aqua;
+            background-color: transparent;
+        }
+
+        input {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        #form {
+            display: grid;
+            gap: 14px;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="Os" class="styler">
+        <div id="mnstart">
+            <h1>The 34th Batch</h1>
+        </div>
+        <div id="form">
+
+            <label class="I_1340">Username :</label><input class="I_1340" type="text" id="enterName"
+                placeholder="Enter your Username">
+            <label class="I_1340">Password :</label><input class="I_1340" type="password" id="enterPassword"
+                placeholder="Enter your Password">
+            <label id="errorLabel" class="I_1340" style="color: brown;"></label>
+
+        </div>
+    </div>
+    <div id="navbar" class="styler">
+        <button id="loginbtn" class="styler T_1340">Login</button>
+        <button id="createaccbtn" class="styler T_1340" style="color: brown;">Create Account</button>
+
+    </div>
+    <script type="module">
+
+
+         const firebaseConfig = {
+            apiKey: "AIzaSyAfItoAYukh28zgMoYgehQbSA1WjVmjkjg",
+            authDomain: "the34thbatch-88ecf.firebaseapp.com",
+            databaseURL: "https://the34thbatch-88ecf-default-rtdb.firebaseio.com",
+            projectId: "the34thbatch-88ecf",
+            storageBucket: "the34thbatch-88ecf.appspot.com",
+            messagingSenderId: "106571997226",
+            appId: "1:106571997226:web:d49c6cb1155690fc3ca353"
+        };
+
+        // Initialize Firebase
+        
+        import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"
+        const app = initializeApp(firebaseConfig);
+
+        const db = getDatabase();
+
+
+        var unam = document.querySelector("#enterName")
+        var upas = document.querySelector("#enterPassword")
+        var errlab = document.querySelector("#errorLabel")
+        var lgnbtn = document.querySelector("#loginbtn")
+        var createaccbtn = document.querySelector("#createaccbtn")
+
+
+
+        function findData() {
+            var nameExistance;
+            const dbref = ref(db);
+
+            get(child(dbref, "Users/" + enterName.value))
+                .then((snapshot) => {
+
+                    if (snapshot.exists()) {
+                        console.log("User Name Exists")
+                        console.log(enterPassword.value + '\n' + snapshot.val().Password)
+                        if (enterPassword.value == snapshot.val().Password) {
+                            console.log("Login Successful")
+                            login()
+                        } else {
+                            errorLabel.style.display = 'block';
+                            errorLabel.style.color = 'red';
+                            errorLabel.innerHTML = 'Incorrect Password! Try Again';
+                            enterPassword.value = '';
+                        }
+                    } else {
+                        errorLabel.style.display = 'block';
+                        errorLabel.innerHTML = 'Account Does not Exist! Please check the user name again!'
+                        enterPassword.value = '';
+                        enterName.value = '';
+                        nameExistance = 0;
+                    }
+                })
+        }
+
+        function crAccPg(){
+
+        }
+
+        function inpsvalidity(){
+            errorLabel.style.display = 'block';
+            errorLabel.innerHTML = 'Loading...';
+            
+
+            if ((enterName.value.replace(/\s+/g, '') == '') && (enterPassword.value.replace(/\s+/g, '') == '')) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "Please fill all the fields";
+
+            } else if (enterName.value.replace(/\s+/g, '') == '') {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "Please Enter A Valid Name";
+            } else if (enterPassword.value.replace(/\s+/g, '') == '') {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "Please Enter the Password";
+            } else if ((enterName.value.includes('.')) || (enterName.value.includes('$')) || (enterName.value.includes('/')) || (enterName.value.includes('[')) || (enterName.value.includes(']'))) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "Username Cannot contain the characters . $ [ ] /";
+            } else if ((enterPassword.value.includes('.')) || (enterPassword.value.includes('$')) || (enterPassword.value.includes('/')) || (enterPassword.value.includes('[')) || (enterPassword.value.includes(']'))) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "Password Cannot contain the characters . $ [ ] /";
+            } else {
+                findData()
+            }
+        }
+
+        lgnbtn.addEventListener('click',inpsvalidity)
+        createaccbtn.addEventListener('click',crAccPg)
+        // console.log("")
+    </script>
+</body>
+
+</html>
