@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 34th Batch</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 97LVH;
+        }
+
+        #Os {
+            position: sticky;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 97%;
+            min-height: 80lvh;
+        }
+
+        #mnstart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #navbar {
+            display: flex;
+            flex-direction: initial;
+            position: fixed;
+            top: 82%;
+            min-width: 10%;
+            min-height: 30px;
+            align-items: center;
+            gap: 15px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        .styler {
+            background-color: #0D1B2A;
+            border: 2px solid rgb(7, 229, 250);
+            border-radius: 12px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: rgb(10, 66, 206);
+        }
+
+        .tier2 {
+            border: 2px solid rgb(7, 229, 250);
+            /* padding: 0.09dvh; */
+        }
+
+        .T_1340 {
+            padding: 4px;
+            color: aqua;
+            font-family: monospace;
+            font-size: 1.5em;
+        }
+
+        .T_1340:hover {
+            border-color: aliceblue;
+            color: cornsilk;
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="Os" class="styler">
+        <div id="mnstart">
+            <h1>The 34th Batch</h1>
+            <h3 id="" class="" style="color:red;">This Page has had a UI Development <br><br>Other functions might take time to develop<br><br>You Can login and Create an Account for later</h3>
+        </div>
+    </div>
+    <div id="navbar" class="styler">
+        <label class="styler T_1340">Home</label>
+        <label class="styler T_1340">Profile</label>
+        <label class="styler T_1340">Slam Book</label>
+        <label class="styler T_1340" id="lginbtn">Login</label>
+    </div>
+
+    <script type="module">
+
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfItoAYukh28zgMoYgehQbSA1WjVmjkjg",
+            authDomain: "the34thbatch-88ecf.firebaseapp.com",
+            databaseURL: "https://the34thbatch-88ecf-default-rtdb.firebaseio.com",
+            projectId: "the34thbatch-88ecf",
+            storageBucket: "the34thbatch-88ecf.appspot.com",
+            messagingSenderId: "106571997226",
+            appId: "1:106571997226:web:d49c6cb1155690fc3ca353"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+
+        var lgst;
+        var lginbtn = document.querySelector("#lginbtn")
+        const unam = localStorage.getItem('una')
+        const upas = localStorage.getItem('upa')
+
+        const auna = atob(unam);
+        const aupa = atob(upas);
+
+        const dbref = ref(db);
+        get(child(dbref, "Users/" + auna))
+            .then((snapshot) => {
+
+                if (snapshot.exists()) {
+                    console.log("UNE")
+                    // console.log(enterPassword.value + '\n' + snapshot.val().Password)
+                    if (aupa == snapshot.val().Password) {
+                        lgst = 1;
+                        lginbtn.textContent = "Log Out";
+                    } else {
+                        console.log("Acc nt Lgged In")
+                    }
+                } else {
+                    console.log("Acc nt Lgged In")
+                }
+            })
+
+            function lginout(){
+                if(lgst == 0){
+                    window.location.href = 'lgin.html';
+                }else{
+                    lgst = 0;
+                    lginbtn.textContent = "Login";
+                    localStorage.clear()
+                }
+            }
+            lginbtn.addEventListener('click', lginout)
+
+    </script>
+
+</body>
+
+</html>

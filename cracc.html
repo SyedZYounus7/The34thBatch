@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            /* Increase the font size */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color:black;
+        }
+
+        .container {
+            width: 400px;
+            /* Increase the width */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            color:rgb(15, 231, 227);
+            background-color: #1c1b31;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="password"],
+        button {
+            width: 95%;
+            padding: 12px;
+            /* Increase padding */
+            font-size: 16px;
+            /* Adjust font size */
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            color: white;
+            background-color: #100f0f;
+        }
+
+        button {
+            background-color: #171339;
+            border: 1px solid white;
+            cursor: pointer;
+        }
+
+
+        button:active {
+            opacity: 0.6;
+            /* Adjust the opacity value (0 to 1) */
+        }
+
+        button:hover {
+            filter: brightness(70%);
+            /* Adjust the percentage (0 to 100) */
+        }
+
+
+
+
+        .laters {
+            display: none;
+        }
+
+        #errorLabel {
+            color: rgb(133, 15, 18);
+            /* display:none; */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Create an Account</h2>
+
+        <label for="fullName" class="initials">Full Name:</label>
+        <input type="text" id="enterFullName" name="fullName" class="initials">
+        <label for="dob" class="initials">Date of Birth:</label>
+        <input type="date" id="enterdob" name="dob" class="initials">
+        <label for="passwordOnce"  class="laters enterp">Enter Password</label>
+        <input type="password" id="passwordOnce" class="laters">
+        <label for="confirmPassword" class="laters entercp">Confirm Password</label>
+        <input type="password" id="passwordFinal" class="laters">
+        <label for="invalid" id="errorLabel"></label>
+        <button type="submit" id="proceed1" class="initials">Proceed</button>
+        <button id="backbtn" class="laters">Back</button>
+        <button type="submit" id="createAccount" class="laters">Create Account</button>
+        <button onclick="location.href='lgin.html'">Go Back to Login</button>
+
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfItoAYukh28zgMoYgehQbSA1WjVmjkjg",
+            authDomain: "the34thbatch-88ecf.firebaseapp.com",
+            databaseURL: "https://the34thbatch-88ecf-default-rtdb.firebaseio.com",
+            projectId: "the34thbatch-88ecf",
+            storageBucket: "the34thbatch-88ecf.appspot.com",
+            messagingSenderId: "106571997226",
+            appId: "1:106571997226:web:d49c6cb1155690fc3ca353"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"
+
+        const db = getDatabase(app);
+
+        var enterFullName = document.querySelector("#enterFullName")
+        var backbtn = document.querySelector("#backbtn");
+        var createAccountbtn = document.querySelector("#createAccount")
+        var errorLabel = document.querySelector("#errorLabel")
+        var proceed1btn = document.querySelector("#proceed1")
+        var initials = document.querySelectorAll(".initials")
+        var laters = document.querySelectorAll(".laters")
+        var passwordOnce = document.querySelector("#passwordOnce")
+        var passwordFinal = document.querySelector("#passwordFinal")
+        var enterdob = document.querySelector("#enterdob").value;
+        var enterp = document.querySelector(".enterp");
+        var entercp = document.querySelector(".entercp");
+
+
+        async function checkPreExistence(year, month, day) {
+            errorLabel.innerHTML = 'Loading...';
+            errorLabel.style.color = 'green';
+            try {
+                const dbref = ref(db);
+                const snapshot = await get(child(dbref, "Users/" + enterFullName.value));
+
+                if (snapshot.exists()) {
+                    errorLabel.style.display = 'block';
+                    errorLabel.innerHTML = 'An Account with the same Name already Exists';
+                    // alert("Account Already Exists");
+                    return 1;
+                } else {
+                    // alert("Account does not exist!");
+                    return 0;
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                alert("An Unknown Error Occurred")
+                return -1; // Handle the error case appropriately
+            }
+        }
+        
+
+        function proceedAccCreation(year, month, day) {
+            for (var a = 0; a < initials.length; a++) {
+                initials[a].style.display = 'none';
+            }
+            for (a = 0; a < laters.length; a++) {
+                laters[a].style.display = 'block';
+            }
+            errorLabel.style.display = 'none';
+
+        }
+        function createAcc(Name, password, year, month, day, creationDate) {
+            /*console.log(Name)
+            console.log(password)
+            console.log(year)
+            console.log(month)
+            console.log(day)*/
+     
+            set(ref(db, "Users/" + enterFullName.value), {
+                LoginCount: 0,
+                DOB: year + '-' + month + '-' + day,
+                AccountCreationDate: creationDate,
+                Password: password
+            })
+                .then(() => {
+                    errorLabel.style.display = 'block';
+                    backbtn.style.display ='none';
+                    //laters.style.display ='none';
+                    enterp.style.display = "none";
+                    entercp.style.display ="none";
+                    errorLabel.innerHTML = 'Account Created Successfully\nPlease go Back to login Page and login to your Account';
+                    passwordOnce.style.display = 'none';
+                    passwordFinal.style.display = 'none';
+                    createAccountbtn.style.display = 'none';
+                    // location.href = 'index.html';
+                })
+                .catch((error) => { alert(error) })
+        }
+
+        function checkDetails() {
+            enterdob = document.querySelector("#enterdob").value;
+
+            var currentDate = new Date();
+            var currentYear = currentDate.getFullYear();
+
+            var dobParts = enterdob.split('-'); // Split by hyphen
+            var year = parseInt(dobParts[0]);
+            var month = parseInt(dobParts[1]);
+            var day = parseInt(dobParts[2]);
+            if ((enterFullName.value.replace(/\s+/g, '') == '') || (!enterdob)) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "Please fill in all the Fields!"
+            } else if (enterFullName.value.includes('.') || enterFullName.value.includes('$') || enterFullName.value.includes('/') || enterFullName.value.includes('[') || enterFullName.value.includes(']')) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "The UserName cannot contain the characters . $ / [ ]";
+            } else if (year > 2011) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = 'You are to young to belong to the 34th Batch';
+            } else {
+
+                checkPreExistence(year, month, day)
+                    .then((result) => {
+                        if (result == 1) {
+                            console.log(result)
+                        } else {
+                            proceedAccCreation(year, month, day)
+                        }
+
+                    });
+            }
+
+        }
+
+        function backToInitials(){
+            for (var a = 0; a < initials.length; a++) {
+                initials[a].style.display = 'block';
+            }
+            for (a = 0; a < laters.length; a++) {
+                laters[a].style.display = 'none';
+            }
+            errorLabel.style.display = 'none';
+            passwordOnce.value = '';
+            passwordFinal.value = '';
+        }
+
+        function checkDetails2() {
+
+            enterdob = document.querySelector("#enterdob").value;
+            var dobParts = enterdob.split('-'); // Split by hyphen
+            var year = parseInt(dobParts[0]);
+            var month = parseInt(dobParts[1]);
+            var day = parseInt(dobParts[2]);
+
+            //var creationDate = new Date()
+            const date = new Date();
+
+            let day1 = date.getDate();
+            let month1 = date.getMonth() + 1;
+            let year1 = date.getFullYear();
+
+// This arrangement can be altered based on how we want the date's format to appear.
+            let currentDate = `${day1}-${month1}-${year1}`;
+            console.log(currentDate);
+            
+
+            if ((passwordOnce.value.replace(/\s+/g, '') == '') || (passwordFinal.value.replace(/\s+/g, '') == '')) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "Please fill in all the Fields!";
+
+            } else if ((passwordOnce.value.includes('.')) || (passwordOnce.value.includes('/')) || (passwordOnce.value.includes('$')) || (passwordOnce.value.includes('[')) || (passwordOnce.value.includes(']'))) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "The Password Cannot Contain the characters  .  /  $  [  ]";
+            } else if (passwordOnce.value.replace(/\s+/g, '').length < 6) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "The Password must be greater than 6 characters!";
+            }
+            else if (passwordOnce.value != passwordFinal.value) {
+                errorLabel.style.display = 'block';
+                errorLabel.innerHTML = "The Passwords Do Not match";
+                passwordOnce.value = '';
+                passwordFinal.value = '';
+            } else {
+                //var doc = [String(creationDate.getFullYear()), String(creationDate.getMonth()), String(creationDate.getDay())]
+                createAcc(enterFullName.value, passwordFinal.value, year, month, day, currentDate);
+            }
+
+        }
+        window.onbeforeunload = function () {
+            return 'Are you sure you want to leave?';
+        };
+        backbtn.addEventListener('click',backToInitials)
+        proceed1btn.addEventListener('click', checkDetails)
+        createAccountbtn.addEventListener('click', checkDetails2)
+
+    </script>
+</body>
+
+</html>
