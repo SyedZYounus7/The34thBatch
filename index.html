@@ -31,7 +31,7 @@
             flex-direction: column;
             align-items: center;
             min-width: 97%;
-            min-height: 80lvh;
+            min-height: 90lvh;
         }
 
         #mnstart {
@@ -40,12 +40,14 @@
             align-items: center;
         }
 
+        
         #navbar {
             display: flex;
             flex-direction: initial;
             position: fixed;
-            top: 82%;
-            min-width: 10%;
+            top: 93lvh;
+            left: 3.6lvh;
+            min-width: 3lvh;
             min-height: 30px;
             align-items: center;
             gap: 15px;
@@ -54,7 +56,7 @@
             padding-top: 4px;
             padding-bottom: 4px;
         }
-
+  
         .styler {
             background-color: #0D1B2A;
             border: 2px solid rgb(7, 229, 250);
@@ -88,14 +90,16 @@
     <div id="Os" class="styler">
         <div id="mnstart">
             <h1>The 34th Batch</h1>
-            <h3 id="" class="" style="color:red;">This Page has had a UI Development <br><br>Other functions might take time to develop<br><br>You Can login and Create an Account for later</h3>
+            <h3 id="" class="" style="color:red;">This Page has had a UI Development <br><br>Other functions might take
+                time to develop<br><br>You Can login and Create an Account for later</h3>
         </div>
     </div>
     <div id="navbar" class="styler">
-        <label class="styler T_1340">Home</label>
-        <label class="styler T_1340">Profile</label>
-        <label class="styler T_1340">Slam Book</label>
-        <label class="styler T_1340" id="lginbtn">Login</label>
+        <label class="styler T_1340 mnbtns" id="hmbtn">Home</label>
+        <label class="styler T_1340 mnbtns" id="prfbtn">Profile</label>
+        <label class="styler T_1340 mnbtns" id="slmbtn">Slam Book</label>
+        <label class="styler T_1340 mnbtns" id="lginbtn">Login</label>
+        <label class="style T_1340" id="mnbtn">Menu</label>
     </div>
 
     <script type="module">
@@ -117,6 +121,16 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase();
+
+        var mnbtn = document.querySelector("#mnbtn")
+        var mnactive = false;
+
+        var navbar = document.querySelector("#navbar")
+
+        var hmbtn = document.querySelector("#hmbtn")
+        var prfbtn = document.querySelector("#prfbtn")
+        var slmbtn = document.querySelector("#slmbtn")
+        var menbtns = document.querySelectorAll(".mnbtns")
 
         var lgst;
         var lginbtn = document.querySelector("#lginbtn")
@@ -144,19 +158,39 @@
                 }
             })
 
-            function lginout(){
-                if(lgst == 0){
-                    window.location.href = 'lgin.html';
-                }else{
-                    lgst = 0;
-                    lginbtn.textContent = "Login";
-                    localStorage.clear()
-                }
-            }
-            lginbtn.addEventListener('click', lginout)
 
+
+        function lginout() {
+            if (lgst == 0) {
+                window.location.href = 'lgin.html';
+            } else {
+                lgst = 0;
+                lginbtn.textContent = "Login";
+                localStorage.clear()
+            }
+        }
+        lginbtn.addEventListener('click', lginout)
+
+        if (!mnactive) {
+            menbtns.forEach(element => {
+                element.style.display = 'none';
+            })
+        }
+        mnbtn.addEventListener('click', function () {
+            if (mnactive) {
+                menbtns.forEach(element => { // Loop through the NodeList
+                    element.style.display = 'none';
+                });
+                mnactive = false; // Toggle the state
+            } else {
+                menbtns.forEach(element => { // Loop through the NodeList
+                    element.style.display = 'block';
+                    navbar.style.left = 40;
+
+                });
+                mnactive = true; // Toggle the state
+            }
+        });
     </script>
 
 </body>
-
-</html>
