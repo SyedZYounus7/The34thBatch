@@ -25,7 +25,7 @@
         }
 
         #Os {
-            position:relative;
+            position: relative;
             display: flex;
             top: 23%;
             flex-direction: column;
@@ -42,7 +42,7 @@
 
         #navbar {
             display: flex;
-            flex-direction: initial;
+            flex-direction: column;
             position: relative;
             top: 25%;
             min-width: 10%;
@@ -54,6 +54,7 @@
             padding-top: 4px;
             padding-bottom: 4px;
         }
+
 
         .styler {
             background-color: #0D1B2A;
@@ -117,11 +118,17 @@
 
         </div>
     </div>
-    <div id="navbar" class="styler">
-        <button id="loginbtn" class="styler T_1340">Login</button>
-        <button id="createaccbtn" class="styler T_1340" style="color: brown;">Create Account</button>
 
+
+    <div id="navbar" class="styler">
+        <div id="navbarinc" class="styler">
+            <button id="loginbtn" class="styler T_1340">Login</button>
+            <button id="createaccbtn" class="styler T_1340" style="color: brown;">Create Account</button>
+        </div>
+
+        <label class="styler T_1340" id="hmbtn">Home</label>
     </div>
+
     <script type="module">
 
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -146,7 +153,7 @@
         var errlab = document.querySelector("#errorLabel")
         var lgnbtn = document.querySelector("#loginbtn")
         var createaccbtn = document.querySelector("#createaccbtn")
-
+        var hmbtn = document.querySelector("#hmbtn")
 
 
         const storedUsername = localStorage.getItem('una');
@@ -187,12 +194,12 @@
 
 
 
-        function login(){
+        function login() {
             const testName = btoa(unam.value);
             const testPass = btoa(upas.value);
             localStorage.setItem('una', testName);
             localStorage.setItem('upa', testPass);
-            localStorage.setItem('stage','profile')
+            localStorage.setItem('stage', 'profile')
             location.href = 'index.html';
         }
 
@@ -218,16 +225,12 @@
                         }
                     } else {
                         errorLabel.style.display = 'block';
-                        errorLabel.innerHTML = 'Account Does not Exist! Please check the user name again!'
+                        errorLabel.innerHTML = 'Account Does not Exist! <br>Please check the user name again!'
                         enterPassword.value = '';
                         enterName.value = '';
                         nameExistance = 0;
                     }
                 })
-        }
-
-        function crAccPg() {
-            location.href ='/cracc.html';
         }
 
         function inpsvalidity() {
@@ -256,8 +259,14 @@
             }
         }
 
+        hmbtn.addEventListener('click', function () {
+            location.href = "/index.html"
+        })
+
         lgnbtn.addEventListener('click', inpsvalidity)
-        createaccbtn.addEventListener('click', crAccPg)
+        createaccbtn.addEventListener('click', function () {
+            location.href = '/cracc.html';
+        })
         // console.log("")
     </script>
 </body>
