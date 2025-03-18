@@ -40,7 +40,7 @@
             align-items: center;
         }
 
-        
+
         #navbar {
             display: flex;
             flex-direction: initial;
@@ -56,7 +56,15 @@
             padding-top: 4px;
             padding-bottom: 4px;
         }
-  
+
+        #profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 99%;
+            min-height: 99%;
+        }
+
         .styler {
             background-color: #0D1B2A;
             border: 2px solid rgb(7, 229, 250);
@@ -81,17 +89,33 @@
             border-color: aliceblue;
             color: cornsilk;
 
+        }
 
+        #inprfhead {
+            color: red;
+            padding-top: 12px;
+            padding-inline: 12px;
+            min-width: 100%;
+            min-height: 18%;
+            font-size: xx-large;
+            font-family: monospace;
         }
     </style>
 </head>
 
 <body>
     <div id="Os" class="styler">
-        <div id="mnstart">
-            <h1>The 34th Batch</h1>
+        <div id="HOME">
+            <h1 style="color: #17ff06;">The 34th Batch</h1>
             <h3 id="" class="" style="color:red;">This Page has had a UI Development <br><br>Other functions might take
                 time to develop<br><br>You Can login and Create an Account for later</h3>
+        </div>
+        <div id="profile" class="styler">
+            <div id="inprfhead">
+                <label id="unmpr" class="elite"></label>
+
+                <label style="font-size: smaller;">Edit</label>
+            </div>
         </div>
     </div>
     <div id="navbar" class="styler">
@@ -125,7 +149,16 @@
         var mnbtn = document.querySelector("#mnbtn")
         var mnactive = false;
 
-        var navbar = document.querySelector("#navbar")
+        var homediv = document.querySelector("#HOME")       // 1
+        var navbar = document.querySelector("#navbar")      // 2
+        var profilediv = document.querySelector("#profile") // 3
+        var status =0;
+
+
+        //{Profile Shit}
+        var unmpr = document.querySelector("#unmpr")
+
+
 
         var hmbtn = document.querySelector("#hmbtn")
         var prfbtn = document.querySelector("#prfbtn")
@@ -140,6 +173,7 @@
         const auna = atob(unam);
         const aupa = atob(upas);
 
+
         const dbref = ref(db);
         get(child(dbref, "Users/" + auna))
             .then((snapshot) => {
@@ -152,12 +186,13 @@
                         lginbtn.textContent = "Log Out";
                     } else {
                         console.log("Acc nt Lgged In")
+                        lgst=0;
                     }
                 } else {
                     console.log("Acc nt Lgged In")
+                    lgst=0;
                 }
             })
-
 
 
         function lginout() {
@@ -166,7 +201,9 @@
             } else {
                 lgst = 0;
                 lginbtn.textContent = "Login";
-                localStorage.clear()
+                console.log(status)
+                updateprfdisp()
+                // window.location.href = 'index.html';
             }
         }
         lginbtn.addEventListener('click', lginout)
@@ -191,6 +228,35 @@
                 mnactive = true; // Toggle the state
             }
         });
+
+
+        function updateprfdisp() {
+            if (status == 2) { // For When in Profile Section
+                unmpr.innerHTML = auna;
+            }
+        }
+
+        function prfl() {
+            console.log()
+            if (lgst == 0) {
+                window.alert("You Are Not Logged In")
+            } else {
+                { status = 2; } globalThis
+                homediv.style.display = 'none';
+                profilediv.style.display = 'block';
+                updateprfdisp()
+            }
+
+        }
+        function hme() {
+
+        }
+
+        // prfl()
+        profilediv.style.display = 'none';
+        prfbtn.addEventListener('click', prfl)
+        hmbtn.addEventListener('click', hme)
+
     </script>
 
 </body>
