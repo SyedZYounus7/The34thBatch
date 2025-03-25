@@ -197,10 +197,12 @@
 
         function lginout() {
             if (lgst == 0) {
+                code=0;
                 window.location.href = 'lgin.html';
             } else {
                 lgst = 0;
                 lginbtn.textContent = "Login";
+                code=1;
                 console.log(status)
                 updateprfdisp()
                 // window.location.href = 'index.html';
@@ -233,6 +235,9 @@
         function updateprfdisp() {
             if (status == 2) { // For When in Profile Section
                 unmpr.innerHTML = auna;
+            }
+            if(status == 2 && code=1){
+                location.reload()
             }
         }
 
