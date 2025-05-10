@@ -221,6 +221,8 @@
                     lgst=0;
                 }
             })
+
+
         function lginout() {
             if (lgst == 0) {
                 window.location.href = 'lgin.html';
@@ -234,6 +236,7 @@
             }
         }
         lginbtn.addEventListener('click', lginout)
+
         if (!mnactive) {
             menbtns.forEach(element => {
                 element.style.display = 'none';
@@ -254,6 +257,8 @@
                 mnactive = true; // Toggle the state
             }
         });
+
+
         function updateprfdisp(code) {
             if (status == 2) { // For When in Profile Section
                 unmpr.innerHTML = auna;
@@ -262,6 +267,7 @@
                 location.reload()
             }
         }
+
         function prfl() {
             console.log()
             if (lgst == 0) {
@@ -272,10 +278,12 @@
                 profilediv.style.display = 'block';
                 updateprfdisp()
             }
+
         }
         function hme() {
 
         }
+
         // prfl()
         profilediv.style.display = 'none';
         prfbtn.addEventListener('click', prfl)
