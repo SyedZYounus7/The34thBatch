@@ -154,16 +154,16 @@
         var lgnbtn = document.querySelector("#loginbtn")
         var createaccbtn = document.querySelector("#createaccbtn")
         var hmbtn = document.querySelector("#hmbtn")
-
+        var nocaresgiven;
 
         const storedUsername = localStorage.getItem('una');
         const storedPassword = localStorage.getItem('upa');
 
         console.log(storedUsername, storedPassword)
 
-        var actname = atob(storedUsername);
+        const actname = atob(storedUsername);
         const actpass = atob(storedPassword);
-        actname = ItseemsYouAreAFool(actname)
+        nocaresgiven = ItseemsYouAreAFool(actname)
         console.log(actname, actpass)
 
         var entered = 0;
@@ -189,7 +189,7 @@
         if (entered == 0) {
             const dbref = ref(db);
 
-            get(child(dbref, "Users/" + actname))
+            get(child(dbref, "Users/" + nocaresgiven))
                 .then((snapshot) => {
 
                     if (snapshot.exists()) {
@@ -226,7 +226,7 @@
             var nameExistance;
             const dbref = ref(db);
 
-            get(child(dbref, "Users/" + enterName.value))
+            get(child(dbref, "Users/" + ItseemsYouAreAFool(enterName.value)))
                 .then((snapshot) => {
 
                     if (snapshot.exists()) {
