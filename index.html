@@ -25,13 +25,19 @@
             height: 97LVH;
         }
 
+        @media(max-width:768px){
+            body{
+            font-size: 14px;
+            }
+        }
+
         #Os {
             position: sticky;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-width: 97%;
-            min-height: 90lvh;
+            min-height: 85lvh;
         }
 
         #mnstart {
@@ -40,21 +46,27 @@
             align-items: center;
         }
 
-
         #navbar {
             display: flex;
             flex-direction: initial;
             position: fixed;
-            top: 93lvh;
-            left: 3.6lvh;
-            min-width: 3lvh;
+            right: 7%;
+            /* min-width: 3lvh;
             min-height: 30px;
             align-items: center;
             gap: 15px;
             padding-left: 10px;
             padding-right: 10px;
             padding-top: 4px;
-            padding-bottom: 4px;
+            padding-bottom: 4px; */
+
+            display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 2%;
+    gap: 8px;
+    max-width: 70%;
+    font-size: smaller;
         }
 
         #profile {
@@ -71,6 +83,7 @@
             border-radius: 12px;
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             color: rgb(10, 66, 206);
+            font-size: smaller;
         }
 
         .tier2 {
@@ -107,23 +120,23 @@
     <div id="Os" class="styler">
         <div id="HOME">
             <h1 style="color: #17ff06;">The 34th Batch</h1>
-            <h3 id="" class="" style="color:red;">This Page has had a UI Development <br><br>Other functions might take
-                time to develop<br><br>You Can login and Create an Account for later</h3>
+            <h3 id="" class="" style="color:red;">The page's UI is under development <br><br>Other functions might take
+                time to develop<br><br></h3>
         </div>
         <div id="profile" class="styler">
             <div id="inprfhead">
                 <label id="unmpr" class="elite"></label>
 
-                <label style="font-size: smaller;">Edit</label>
+                <label style="font-size: smaller;"></label>
             </div>
         </div>
     </div>
     <div id="navbar" class="styler">
+        <label class="style T_1340" id="mnbtn">Menu</label>
         <label class="styler T_1340 mnbtns" id="hmbtn">Home</label>
         <label class="styler T_1340 mnbtns" id="prfbtn">Profile</label>
         <label class="styler T_1340 mnbtns" id="slmbtn">Slam Book</label>
         <label class="styler T_1340 mnbtns" id="lginbtn">Login</label>
-        <label class="style T_1340" id="mnbtn">Menu</label>
     </div>
 
     <script type="module">
@@ -158,7 +171,22 @@
         //{Profile Shit}
         var unmpr = document.querySelector("#unmpr")
 
-
+        function AmIStillAlive(text) {
+            var listo = ["bs2", "np2", "kl1", "lpo", "adv", "nb3", "pp2", "adf", "bv3", "vnm", "zxc", "xcv", "cvb", "asd", "qwe", "fgh", "sd2", "fd4", "gt6", "qmk", "asd", "fdg", "bvc", "zab", "azs", "asd", "edf", "aqw", "lkg", "ukg", "apa", "pqr", "ag9", "pp0", "uy6", "rt5", "re2", "mm1", "xd1", "yz6", "wr8", "alp", "ala", "cj4", "aop", "ppt", "oop", "asd1"];
+            var newt='';
+            for (var i = 0; i < text.length; i++) {
+                if (text.charCodeAt(i) == 32) {
+                    newt = newt + "wtf";
+                }
+                else if (text.charCodeAt(i) == 48) {
+                    newt = newt + "fyb"
+                }
+                else {
+                    newt = newt + listo[Math.abs(96 - text.charCodeAt(i))];
+                }
+            }
+            return newt;
+        }
 
         var hmbtn = document.querySelector("#hmbtn")
         var prfbtn = document.querySelector("#prfbtn")
@@ -175,13 +203,13 @@
 
 
         const dbref = ref(db);
-        get(child(dbref, "Users/" + auna))
+        get(child(dbref, "Users/" + AmIStillAlive(auna)))
             .then((snapshot) => {
 
                 if (snapshot.exists()) {
                     console.log("UNE")
                     // console.log(enterPassword.value + '\n' + snapshot.val().Password)
-                    if (aupa == snapshot.val().Password) {
+                    if (AmIStillAlive(aupa) == snapshot.val().IsItAJoke) {
                         lgst = 1;
                         lginbtn.textContent = "Log Out";
                     } else {
@@ -193,8 +221,6 @@
                     lgst=0;
                 }
             })
-
-
         function lginout() {
             if (lgst == 0) {
                 window.location.href = 'lgin.html';
@@ -208,7 +234,6 @@
             }
         }
         lginbtn.addEventListener('click', lginout)
-
         if (!mnactive) {
             menbtns.forEach(element => {
                 element.style.display = 'none';
@@ -229,8 +254,6 @@
                 mnactive = true; // Toggle the state
             }
         });
-
-
         function updateprfdisp(code) {
             if (status == 2) { // For When in Profile Section
                 unmpr.innerHTML = auna;
@@ -239,7 +262,6 @@
                 location.reload()
             }
         }
-
         function prfl() {
             console.log()
             if (lgst == 0) {
@@ -250,12 +272,10 @@
                 profilediv.style.display = 'block';
                 updateprfdisp()
             }
-
         }
         function hme() {
 
         }
-
         // prfl()
         profilediv.style.display = 'none';
         prfbtn.addEventListener('click', prfl)
