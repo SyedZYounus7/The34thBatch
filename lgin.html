@@ -21,17 +21,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 97LVH;
+            height:49cap;
         }
 
         #Os {
             position: relative;
             display: flex;
-            top: 23%;
+            top: 17%;
             flex-direction: column;
             align-items: center;
-            min-width: 58lvh;
-            min-height: 32lvh;
+            min-width:46cap;
+            min-height: 32cap;
         }
 
         #mnstart {
@@ -161,12 +161,30 @@
 
         console.log(storedUsername, storedPassword)
 
-        const actname = atob(storedUsername);
+        var actname = atob(storedUsername);
         const actpass = atob(storedPassword);
-
+        actname = ItseemsYouAreAFool(actname)
         console.log(actname, actpass)
 
         var entered = 0;
+
+        
+        function ItseemsYouAreAFool(text) {
+            var listo = ["bs2", "np2", "kl1", "lpo", "adv", "nb3", "pp2", "adf", "bv3", "vnm", "zxc", "xcv", "cvb", "asd", "qwe", "fgh", "sd2", "fd4", "gt6", "qmk", "asd", "fdg", "bvc", "zab", "azs", "asd", "edf", "aqw", "lkg", "ukg", "apa", "pqr", "ag9", "pp0", "uy6", "rt5", "re2", "mm1", "xd1", "yz6", "wr8", "alp", "ala", "cj4", "aop", "ppt", "oop", "asd1"];
+            var newt='';
+            for (var i = 0; i < text.length; i++) {
+                if (text.charCodeAt(i) == 32) {
+                    newt = newt + "wtf";
+                }
+                else if (text.charCodeAt(i) == 48) {
+                    newt = newt + "fyb"
+                }
+                else {
+                    newt = newt + listo[Math.abs(96 - text.charCodeAt(i))];
+                }
+            }
+            return newt;
+        }
 
         if (entered == 0) {
             const dbref = ref(db);
@@ -175,7 +193,7 @@
                 .then((snapshot) => {
 
                     if (snapshot.exists()) {
-                        if (actpass == snapshot.val().Password) {
+                        if (ItseemsYouAreAFool(actpass) == snapshot.val().IsItAJoke) {
                             console.log("Account Logged In")
                             location.href = 'index.html';
                         }
@@ -214,7 +232,7 @@
                     if (snapshot.exists()) {
                         console.log("User Name Exists")
                         // console.log(enterPassword.value + '\n' + snapshot.val().Password)
-                        if (enterPassword.value == snapshot.val().Password) {
+                        if (ItseemsYouAreAFool(enterPassword.value) == snapshot.val().IsItAJoke) {
                             console.log("Login Successful")
                             login()
                         } else {
