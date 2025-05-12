@@ -82,7 +82,7 @@
         }
 
         .I_1340 {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: aqua;
             background-color: transparent;
         }
@@ -99,6 +99,11 @@
             gap: 14px;
             flex-direction: column;
             align-items: center;
+        }
+        @media(max-width:786px){
+            body{
+                scale: 0.67;
+            }
         }
     </style>
 </head>
@@ -159,12 +164,10 @@
         const storedUsername = localStorage.getItem('una');
         const storedPassword = localStorage.getItem('upa');
 
-        console.log(storedUsername, storedPassword)
 
         const actname = atob(storedUsername);
         const actpass = atob(storedPassword);
         nocaresgiven = ItseemsYouAreAFool(actname)
-        console.log(actname, actpass)
 
         var entered = 0;
 
@@ -217,7 +220,7 @@
             const testPass = btoa(upas.value);
             localStorage.setItem('una', testName);
             localStorage.setItem('upa', testPass);
-            localStorage.setItem('stage', 'profile')
+            localStorage.setItem('stage',1)
             location.href = 'index.html';
         }
 
