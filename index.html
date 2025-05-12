@@ -25,9 +25,9 @@
             height: 97LVH;
         }
 
-        @media(max-width:768px){
-            body{
-            font-size: 14px;
+        @media(max-width:768px) {
+            body {
+                font-size: 14px;
             }
         }
 
@@ -36,9 +36,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-width: 97%;
+            min-width: 100%;
             min-height: 85lvh;
         }
+
 
         #mnstart {
             display: flex;
@@ -51,22 +52,14 @@
             flex-direction: initial;
             position: fixed;
             right: 7%;
-            /* min-width: 3lvh;
-            min-height: 30px;
-            align-items: center;
-            gap: 15px;
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 4px;
-            padding-bottom: 4px; */
 
             display: flex;
-    flex-direction: column;
-    align-items: center;
-    top: 2%;
-    gap: 8px;
-    max-width: 70%;
-    font-size: smaller;
+            flex-direction: column;
+            align-items: center;
+            top: 2%;
+            gap: 8px;
+            max-width: 70%;
+            font-size: smaller;
         }
 
         #profile {
@@ -80,6 +73,14 @@
         .styler {
             background-color: #0D1B2A;
             border: 2px solid rgb(7, 229, 250);
+            border-radius: 12px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: rgb(10, 66, 206);
+            font-size: smaller;
+        }
+
+        .styler2 {
+            background-color: #0D1B2A;
             border-radius: 12px;
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             color: rgb(10, 66, 206);
@@ -113,6 +114,50 @@
             font-size: xx-large;
             font-family: monospace;
         }
+
+        @media (max-width:786px) {
+            body {
+                font-size: 13px;
+            }
+
+            .styler2 {
+                background-color: #0D1B2A;
+                border-radius: 12px;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                color: rgb(10, 66, 206);
+                font-size: 10px;
+            }
+
+            #profile {
+                font-size: x-large;
+            }
+
+            #Os {
+                position: sticky;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-width: 104%;
+                min-height: 85lvh;
+            }
+
+            #navbar {
+
+                display: flex;
+                flex-direction: initial;
+                position: fixed;
+                right: 7%;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                top: 2%;
+                gap: 8px;
+
+                max-width: 40%;
+                font-size: x-small;
+            }
+        }
     </style>
 </head>
 
@@ -123,9 +168,9 @@
             <h3 id="" class="" style="color:red;">The page's UI is under development <br><br>Other functions might take
                 time to develop<br><br></h3>
         </div>
-        <div id="profile" class="styler">
+        <div id="profile" class="styler2">
             <div id="inprfhead">
-                <label id="unmpr" class="elite"></label>
+                <label id="unmpr" class="elite" style="font-size: smaller;"></label>
 
                 <label style="font-size: smaller;"></label>
             </div>
@@ -165,7 +210,7 @@
         var homediv = document.querySelector("#HOME")       // 1
         var navbar = document.querySelector("#navbar")      // 2
         var profilediv = document.querySelector("#profile") // 3
-        var status =0;
+        var status = 1;
 
 
         //{Profile Shit}
@@ -173,7 +218,7 @@
 
         function AmIStillAlive(text) {
             var listo = ["bs2", "np2", "kl1", "lpo", "adv", "nb3", "pp2", "adf", "bv3", "vnm", "zxc", "xcv", "cvb", "asd", "qwe", "fgh", "sd2", "fd4", "gt6", "qmk", "asd", "fdg", "bvc", "zab", "azs", "asd", "edf", "aqw", "lkg", "ukg", "apa", "pqr", "ag9", "pp0", "uy6", "rt5", "re2", "mm1", "xd1", "yz6", "wr8", "alp", "ala", "cj4", "aop", "ppt", "oop", "asd1"];
-            var newt='';
+            var newt = '';
             for (var i = 0; i < text.length; i++) {
                 if (text.charCodeAt(i) == 32) {
                     newt = newt + "wtf";
@@ -197,6 +242,7 @@
         var lginbtn = document.querySelector("#lginbtn")
         const unam = localStorage.getItem('una')
         const upas = localStorage.getItem('upa')
+        let stage = localStorage.getItem('stage')
 
         const auna = atob(unam);
         const aupa = atob(upas);
@@ -214,11 +260,11 @@
                         lginbtn.textContent = "Log Out";
                     } else {
                         console.log("Acc nt Lgged In")
-                        lgst=0;
+                        lgst = 0;
                     }
                 } else {
                     console.log("Acc nt Lgged In")
-                    lgst=0;
+                    lgst = 0;
                 }
             })
 
@@ -231,7 +277,8 @@
                 lginbtn.textContent = "Login";
                 console.log(status)
                 localStorage.clear()
-                updateprfdisp(1)
+                localStorage.setItem('stage',1)
+                updateprfdisp('1')
                 // window.location.href = 'index.html';
             }
         }
@@ -259,13 +306,18 @@
         });
 
 
-        function updateprfdisp(code) {
-            if (status == 2) { // For When in Profile Section
-                unmpr.innerHTML = auna;
+        function updateprfdisp(stages) {
+            if(stages=='1'){
+                console.log("To Home")
+                hme()
             }
-            if(status == 2 && code==1){
-                location.reload()
+            else if (stages == '2') {
+                // console.log("I am done")
+                prfl()
             }
+
+            console.log(status,stages)
+
         }
 
         function prfl() {
@@ -273,20 +325,35 @@
             if (lgst == 0) {
                 window.alert("You Are Not Logged In")
             } else {
-                { status = 2; } globalThis
+                // console.log("hell Yeah")
+                status = 2; 
+                unmpr.innerText = auna;
+                unmpr.style.fontsize = '12px';
                 homediv.style.display = 'none';
                 profilediv.style.display = 'block';
-                updateprfdisp()
+                localStorage.setItem('stage', status)
             }
+            
         }
         function hme() {
-
+            localStorage.setItem('stage',1)
+            status=1
+            homediv.style.display = 'block';
+            profilediv.style.display = 'none';
+            
         }
 
         // prfl()
         profilediv.style.display = 'none';
         prfbtn.addEventListener('click', prfl)
         hmbtn.addEventListener('click', hme)
+
+        window.onload = function () {
+            // localStorage.setItem(stage, status)
+            console.log("Hello Reloaded\n",status)
+            stage = localStorage.getItem('stage') 
+            updateprfdisp(stage)
+        }
 
     </script>
 
